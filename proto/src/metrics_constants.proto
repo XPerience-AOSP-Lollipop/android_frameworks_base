@@ -2225,5 +2225,9 @@ message MetricsEvent {
     // Quick setting tiles
     QUICK_SETTINGS = 415;
 
+    // BEGIN PA CONSTANTS
+    // Settings -> Backup & Reset -> Feature Preferences
+    FEATURE_PREFERENCES = 501;
+
   }
 }
