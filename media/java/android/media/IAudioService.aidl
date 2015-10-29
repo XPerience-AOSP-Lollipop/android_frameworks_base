@@ -186,5 +186,4 @@ interface IAudioService {
      * @hide
      */
     boolean isVisualizerLocked(String callingPackage);
-
 }
