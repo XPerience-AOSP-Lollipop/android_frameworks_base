@@ -157,6 +157,7 @@ import com.android.systemui.settings.BrightnessController;
 import com.android.systemui.settings.CurrentUserTracker;
 import com.android.systemui.stackdivider.Divider;
 import com.android.systemui.stackdivider.WindowManagerProxy;
+import com.android.systemui.statusbar.AppSidebar;
 import com.android.systemui.statusbar.ActivatableNotificationView;
 import com.android.systemui.statusbar.BackDropView;
 import com.android.systemui.statusbar.BaseStatusBar;
@@ -553,6 +554,41 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
     };
 
+    class SettingsObserver extends ContentObserver {
+        SettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.APP_SIDEBAR_POSITION),
+                    false, this, UserHandle.USER_ALL);
+            update();
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            update();
+        }
+
+        void unobserve() {
+            ContentResolver resolver = mContext.getContentResolver();
+            resolver.unregisterContentObserver(this);
+        }
+
+         public void update() {
+            ContentResolver resolver = mContext.getContentResolver();
+            int sidebarPosition = Settings.System.getInt(
+                    resolver, Settings.System.APP_SIDEBAR_POSITION, AppSidebar.SIDEBAR_POSITION_LEFT);
+            if (sidebarPosition != mSidebarPosition) {
+                mSidebarPosition = sidebarPosition;
+                removeSidebarView();
+                addSidebarView();
+            }
+         }
+    }
+
     final private ContentObserver mHeadsUpObserver = new ContentObserver(mHandler) {
         @Override
         public void onChange(boolean selfChange) {
@@ -925,6 +961,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
 
         mAssistManager = SystemUIFactory.getInstance().createAssistManager(this, context);
+		addSidebarView();
 
         // figure out which pixel-format to use for the status bar.
         mPixelFormat = PixelFormat.OPAQUE;
@@ -3862,6 +3899,24 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                         flags |= CommandQueue.FLAG_EXCLUDE_RECENTS_PANEL;
                     }
                     animateCollapsePanels(flags);
+                }
+            }
+            else if (Intent.ACTION_CONFIGURATION_CHANGED.equals(action)) {
+                Configuration config = mContext.getResources().getConfiguration();
+                try {
+                    // position app sidebar on left if in landscape orientation and device has a navbar
+                    if (mWindowManagerService.hasNavigationBar() &&
+                            config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        mWindowManager.updateViewLayout(mAppSidebar,
+                                getAppSidebarLayoutParams(AppSidebar.SIDEBAR_POSITION_LEFT));
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mAppSidebar.setPosition(AppSidebar.SIDEBAR_POSITION_LEFT);
+                            }
+                        }, 500);
+                    }
+                } catch (RemoteException e) {
                 }
             }
             else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
