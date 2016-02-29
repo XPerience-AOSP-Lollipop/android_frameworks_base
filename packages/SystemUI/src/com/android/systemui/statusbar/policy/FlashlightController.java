@@ -198,6 +198,10 @@ public class FlashlightController {
         return mNotification;
     }
 
+    public boolean hasFlashlight() {
+        return mCameraId != null;
+    }
+
     public synchronized boolean isEnabled() {
         return mFlashlightEnabled;
     }

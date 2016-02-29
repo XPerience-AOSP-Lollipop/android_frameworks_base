@@ -59,6 +59,11 @@ public class FlashlightTile extends QSTile<QSTile.BooleanState> implements
     }
 
     @Override
+    public boolean isAvailable() {
+        return mFlashlightController.hasFlashlight();
+    }
+
+    @Override
     protected void handleClick() {
         if (ActivityManager.isUserAMonkey()) {
             return;
