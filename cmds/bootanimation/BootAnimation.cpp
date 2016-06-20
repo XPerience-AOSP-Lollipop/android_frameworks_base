@@ -60,6 +60,11 @@
 #include "BootAnimation.h"
 
 #include <private/regionalization/Environment.h>
+#define OEM_BOOTANIMATION_FILE "/oem/media/bootanimation.zip"
+#define SYSTEM_BOOTANIMATION_FILE "/system/media/bootanimation.zip"
+#define SYSTEM_ENCRYPTED_BOOTANIMATION_FILE "/system/media/bootanimation-encrypted.zip"
+#define THEME_BOOTANIMATION_FILE "/data/system/theme/bootanimation.zip"
+#define EXIT_PROP_NAME "service.bootanim.exit"
 
 #include "audioplay.h"
 
@@ -347,6 +352,40 @@ status_t BootAnimation::readyToRun() {
     else if (access(getAnimationFileName(IMG_SYS), R_OK) == 0) {
         mZipFileName = getAnimationFileName(IMG_SYS);
     }
+    else if (access(THEME_BOOTANIMATION_FILE, R_OK) == 0) {
+        mZipFileName = THEME_BOOTANIMATION_FILE;
+    }
+    else if (access(OEM_BOOTANIMATION_FILE, R_OK) == 0) {
+        mZipFileName = OEM_BOOTANIMATION_FILE;
+
+    }
+
+#ifdef PRELOAD_BOOTANIMATION
+    // Preload the bootanimation zip on memory, so we don't stutter
+    // when showing the animation
+    FILE* fd;
+    if (encryptedAnimation && access(getAnimationFileName(IMG_ENC), R_OK) == 0)
+        fd = fopen(getAnimationFileName(IMG_ENC), "r");
+    else if (access(getAnimationFileName(IMG_OEM), R_OK) == 0)
+        fd = fopen(getAnimationFileName(IMG_OEM), "r");
+    else if (access(getAnimationFileName(IMG_SYS), R_OK) == 0)
+        fd = fopen(getAnimationFileName(IMG_SYS), "r");
+    else
+        return NO_ERROR;
+
+    if (fd != NULL) {
+        // Since including fcntl.h doesn't give us the wrapper, use the syscall.
+        // 32 bits takes LO/HI offset (we don't care about endianness of 0).
+#if defined(__aarch64__) || defined(__x86_64__)
+        if (syscall(__NR_readahead, fd, 0, INT_MAX))
+#else
+        if (syscall(__NR_readahead, fd, 0, 0, INT_MAX))
+#endif
+            ALOGW("Unable to cache the animation");
+        fclose(fd);
+    }
+#endif
+
     return NO_ERROR;
 }
 
