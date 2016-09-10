@@ -673,6 +673,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     // (See Settings.Secure.RING_HOME_BUTTON_BEHAVIOR.)
     int mRingHomeBehavior;
 
+    // The volume key answer
+    boolean mVolumeAnswer;
+
     Display mDisplay;
 
     private int mDisplayRotation;
@@ -949,10 +952,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             resolver.registerContentObserver(CMSettings.System.getUriFor(
                     CMSettings.System.NAVBAR_LEFT_IN_LANDSCAPE), false, this,
                     UserHandle.USER_ALL);
-
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.PA_PIE_STATE), false, this,
                     UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.ANSWER_VOLUME_BUTTON_BEHAVIOR_ANSWER), false, this);
             updateSettings();
         }
 
@@ -2205,6 +2209,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     ((mDeviceHardwareWakeKeys & KEY_MASK_VOLUME) != 0);
             mVolBtnMusicControls = (CMSettings.System.getIntForUser(resolver,
                     CMSettings.System.VOLBTN_MUSIC_CONTROLS, 1, UserHandle.USER_CURRENT) == 1);
+            mVolumeAnswer = (Settings.System.getIntForUser(resolver,
+                    Settings.System.ANSWER_VOLUME_BUTTON_BEHAVIOR_ANSWER, 0, UserHandle.USER_CURRENT) == 1);
 
             // pa pie
             mPieState = (Settings.System.getIntForUser(resolver,
@@ -5804,6 +5810,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     TelecomManager telecomManager = getTelecommService();
                     if (telecomManager != null) {
                         if (telecomManager.isRinging()) {
+                            // The volume key answer
+                            if (mVolumeAnswer) {
+                                  telecomManager.acceptRingingCall();
+                            }
                             // If an incoming call is ringing, either VOLUME key means
                             // "silence ringer".  We handle these keys here, rather than
                             // in the InCallScreen, to make sure we'll respond to them
