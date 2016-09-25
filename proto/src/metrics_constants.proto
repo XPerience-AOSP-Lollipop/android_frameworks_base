@@ -2216,8 +2216,14 @@ message MetricsEvent {
     // Add new aosp constants above this line.
     // END OF AOSP CONSTANTS
 
-   //XPerience
-   XPERIENCE_SETTINGS = 500;
+    //XPerience
+    XPERIENCE_SETTINGS = 500;
+
+    // Extensions
+    EXTENSIONS = 411;
+
+    // Quick setting tiles
+    QUICK_SETTINGS = 412;
 
   }
 }
