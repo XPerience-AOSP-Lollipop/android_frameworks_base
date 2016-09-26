@@ -110,7 +110,7 @@
 
     <!-- The default tiles to display in QuickSettings -->
     <string name="quick_settings_tiles_extra" translatable="false">        
-        screenshot,sync,reboot
+        screenshot,sync,reboot,usb_tether
     </string>
 
     <!-- The tiles to display in QuickSettings -->
