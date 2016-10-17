@@ -759,13 +759,13 @@ public final class ShutdownThread extends Thread {
     }
 
     /**
-     * OEM shutdown handler. This function will load the oem-services jar file
+     * XPerience shutdown handler. This function will load the xpe-services jar file
      * and call into the rebootOrShutdown method defined there if present
      */
     private static void deviceRebootOrShutdown(boolean reboot, String reason)
     {
             Class<?> cl;
-            String deviceShutdownClassName = "com.qti.server.power.ShutdownOem";
+            String deviceShutdownClassName = "mx.xperience.power.ShutdownXPe";
             String deviceShutdownMethodName = "rebootOrShutdown";
             try {
                     cl = Class.forName(deviceShutdownClassName);
