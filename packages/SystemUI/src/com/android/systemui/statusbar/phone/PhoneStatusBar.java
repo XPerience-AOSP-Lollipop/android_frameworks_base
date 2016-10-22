@@ -530,14 +530,14 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     CMSettings.Global.DEV_FORCE_SHOW_NAVBAR, 0, UserHandle.USER_CURRENT) == 1;
 
             if (visible) {
-                forceAddNavigationBar();
+                forceAddNavigationBar(makeGone);
             } else {
-                removeNavigationBar();
+                removeNavigationBar(makeGone);
             }
         }
     }
 
-    private void forceAddNavigationBar() {
+    /*private void forceAddNavigationBar() {
         // If we have no Navbar view and we should have one, create it
         if (mNavigationBarView != null) {
             return;
@@ -548,7 +548,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         mNavigationBarView.setDisabledFlags(mDisabled1);
         addNavigationBar();
-    }
+    }*/
 
     // ensure quick settings is disabled until the current user makes it through the setup wizard
     private boolean mUserSetup = false;
