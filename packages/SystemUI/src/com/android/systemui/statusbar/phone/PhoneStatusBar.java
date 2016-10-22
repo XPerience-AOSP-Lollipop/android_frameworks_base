@@ -537,16 +537,16 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
     }
 
-    public void forceAddNavigationBar(boolean makeGone) {
+    private void forceAddNavigationBar() {
         // If we have no Navbar view and we should have one, create it
-        if (mNavigationController.getBar() != null) {
+        if (mNavigationBarView != null) {
             return;
         }
-        createNavigationBarView(mContext);
-        if (makeGone) {
-            mNavigationController.getBar().getBaseView().setVisibility(View.GONE);
-        }
-        mNavigationController.getBar().notifyInflateFromUser();
+
+        mNavigationBarView =
+                (NavigationBarView) View.inflate(mContext, R.layout.navigation_bar, null);
+
+        mNavigationBarView.setDisabledFlags(mDisabled1);
         addNavigationBar();
     }
 
@@ -1565,13 +1565,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mWindowManager.addView(mNavigationController.getBar().getBaseView(), getNavigationBarLayoutParams());
     }
 
-  /*  private void removeNavigationBar() {
+    private void removeNavigationBar() {
         if (DEBUG) Log.d(TAG, "removeNavigationBar: about to remove " + mNavigationBarView);
         if (mNavigationBarView == null) return;
 
         mWindowManager.removeView(mNavigationBarView);
         mNavigationBarView = null;
-    }*/
+    }
 
     protected void repositionNavigationBar() {
         if (mNavigationController.getBar() == null || !mNavigationController.getBar().getBaseView().isAttachedToWindow()) return;
