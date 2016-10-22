@@ -530,9 +530,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     CMSettings.Global.DEV_FORCE_SHOW_NAVBAR, 0, UserHandle.USER_CURRENT) == 1;
 
             if (visible) {
-                forceAddNavigationBar(makeGone);
+                forceAddNavigationBar();
             } else {
-                removeNavigationBar(makeGone);
+                removeNavigationBar();
             }
         }
     }
@@ -1300,7 +1300,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     protected void inflateNavigationBarView(Context context) {
     }
 
-    public void forceAddNavigationBar(boolean makeGone) {
+    public void forceAddNavigationBar() {
         // If we have no Navbar view and we should have one, create it
         if (mNavigationController.getBar() != null) {
             return;
@@ -1567,10 +1567,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     private void removeNavigationBar() {
         if (DEBUG) Log.d(TAG, "removeNavigationBar: about to remove " + mNavigationBarView);
-        if (mNavigationBarView == null) return;
+        if (mNavigationController.getBar() == null) return;
 
         mWindowManager.removeView(mNavigationBarView);
-        mNavigationBarView = null;
+        mNavigationController.getBar() = null;
     }
 
     protected void repositionNavigationBar() {
