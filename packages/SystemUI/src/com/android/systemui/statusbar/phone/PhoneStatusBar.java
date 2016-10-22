@@ -537,16 +537,16 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
     }
 
-    private void forceAddNavigationBar() {
+    public void forceAddNavigationBar(boolean makeGone) {
         // If we have no Navbar view and we should have one, create it
-        if (mNavigationBarView != null) {
+        if (mNavigationController.getBar() != null) {
             return;
         }
-
-        mNavigationBarView =
-                (NavigationBarView) View.inflate(mContext, R.layout.navigation_bar, null);
-
-        mNavigationBarView.setDisabledFlags(mDisabled1);
+        createNavigationBarView(mContext);
+        if (makeGone) {
+            mNavigationController.getBar().getBaseView().setVisibility(View.GONE);
+        }
+        mNavigationController.getBar().notifyInflateFromUser();
         addNavigationBar();
     }
 
@@ -1565,13 +1565,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mWindowManager.addView(mNavigationController.getBar().getBaseView(), getNavigationBarLayoutParams());
     }
 
-    private void removeNavigationBar() {
+  /*  private void removeNavigationBar() {
         if (DEBUG) Log.d(TAG, "removeNavigationBar: about to remove " + mNavigationBarView);
         if (mNavigationBarView == null) return;
 
         mWindowManager.removeView(mNavigationBarView);
         mNavigationBarView = null;
-    }
+    }*/
 
     protected void repositionNavigationBar() {
         if (mNavigationController.getBar() == null || !mNavigationController.getBar().getBaseView().isAttachedToWindow()) return;
@@ -5361,10 +5361,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                         == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC;
                 break;
             case NAVBAR_LEFT_IN_LANDSCAPE:
-                if (mNavigationBarView != null) {
+                if (mNavigationController.getBar() != null) {
                     final boolean navLeftInLandscape = newValue != null &&
                             Integer.parseInt(newValue) == 1;
-                    mNavigationBarView.setLeftInLandscape(navLeftInLandscape);
+                    mNavigationController.getBar().setLeftInLandscape(navLeftInLandscape);
                 }
                 break;
             case STATUS_BAR_BRIGHTNESS_CONTROL:
