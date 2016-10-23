@@ -3771,7 +3771,7 @@ public final class Settings {
           * @hide
           */
          public static final String LOCKSCREEN_CHARGING_CURRENT = "lockscreen_charging_current";
- 
+
         /**
          * Fling pulse lavalamp psychedelic colors
          *
@@ -3834,7 +3834,7 @@ public final class Settings {
          * @hide
          */
         public static final String PULSE_LAVALAMP_SOLID_SPEED = "lava_lamp_solid_speed";
- 
+
         /**
          * Immersive recents options
          *
@@ -3932,6 +3932,15 @@ public final class Settings {
          * @hide
          */
         public static final String AMBIENT_DISPLAY_SHOW_BATTERY = "ambient_display_show_battery";
+
+        /**
+         * Whether allowing pocket service to register sensors and dispatch informations.
+         *   0 = disabled
+         *   1 = enabled
+         * @author Carlo Savignano
+         * @hide
+         */
+        public static final String POCKET_JUDGE = "pocket_judge";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
@@ -4138,6 +4147,8 @@ public final class Settings {
             PRIVATE_SETTINGS.add(POINTER_SPEED);
             PRIVATE_SETTINGS.add(LOCK_TO_APP_ENABLED);
             PRIVATE_SETTINGS.add(EGG_MODE);
+            // Pocket mode handler.
+            PRIVATE_SETTINGS.add(POCKET_JUDGE);
         }
 
         /**
