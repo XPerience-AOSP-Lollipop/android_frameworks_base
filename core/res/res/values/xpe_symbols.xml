@@ -15,4 +15,8 @@
 <resources>
     <!-- XPe World Easter Egg -->
     <java-symbol type="drawable" name="xpe_world_logo" />
+
+  <!-- Whether notify fingerprint client of successful cancelled authentication -->
+  <java-symbol type="bool" name="config_notifyClientOnFingerprintCancelSuccess" />
+
 </resources>
