@@ -2805,4 +2805,5 @@
     <!-- Support in Surfaceflinger for blur layers.
          NOTE: This requires additional hardware-specific code. -->
     <bool name="config_uiBlurEnabled">false</bool>
+
 </resources>
