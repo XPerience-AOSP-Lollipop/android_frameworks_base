@@ -3766,6 +3766,12 @@ public final class Settings {
          */
         public static final String FLING_TRAILS_COLOR = "fling_trails_color";
 
+          /**
+          * Whether to show the negociated charger current in the lockscreen
+          * @hide
+          */
+         public static final String LOCKSCREEN_CHARGING_CURRENT = "lockscreen_charging_current";
+ 
         /**
          * Fling pulse lavalamp psychedelic colors
          *
