@@ -16,6 +16,20 @@
 
 package com.android.systemui.statusbar.phone;
 
+import static android.app.StatusBarManager.NAVIGATION_HINT_BACK_ALT;
+import static android.app.StatusBarManager.NAVIGATION_HINT_IME_SHOWN;
+import static android.app.StatusBarManager.WINDOW_STATE_HIDDEN;
+import static android.app.StatusBarManager.WINDOW_STATE_SHOWING;
+import static android.app.StatusBarManager.windowStateToString;
+import static com.android.systemui.settings.BrightnessController.BRIGHTNESS_ADJ_RESOLUTION;
+import static com.android.systemui.statusbar.phone.BarTransitions.MODE_LIGHTS_OUT;
+import static com.android.systemui.statusbar.phone.BarTransitions.MODE_LIGHTS_OUT_TRANSPARENT;
+import static com.android.systemui.statusbar.phone.BarTransitions.MODE_OPAQUE;
+import static com.android.systemui.statusbar.phone.BarTransitions.MODE_SEMI_TRANSPARENT;
+import static com.android.systemui.statusbar.phone.BarTransitions.MODE_TRANSLUCENT;
+import static com.android.systemui.statusbar.phone.BarTransitions.MODE_TRANSPARENT;
+import static com.android.systemui.statusbar.phone.BarTransitions.MODE_WARNING;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.NonNull;
