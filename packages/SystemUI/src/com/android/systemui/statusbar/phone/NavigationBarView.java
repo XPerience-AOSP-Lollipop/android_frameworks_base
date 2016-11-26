@@ -293,7 +293,9 @@ public class NavigationBarView extends LinearLayout implements TunerService.Tuna
         mBackCarModeIcon = new BackButtonDrawable(
                 ctx.getDrawable(R.drawable.ic_sysbar_back_carmode));
         mBackLandCarModeIcon = mBackCarModeIcon;
-        mHomeCarModeIcon = ctx.getDrawable(R.drawable.ic_sysbar_home_carmode);
+        mBackAltCarModeIcon = ctx.getDrawable(R.drawable.ic_sysbar_back_ime_carmode);
+        mBackAltLandCarModeIcon = mBackAltCarModeIcon;
+        mHomeCarModeIcon = ctx.getDrawable(R.drawable.ic_sysbar_home_carmode_pixel);
     }
 
     private void updateIcons(Context ctx, Configuration oldConfig, Configuration newConfig) {
@@ -305,7 +307,7 @@ public class NavigationBarView extends LinearLayout implements TunerService.Tuna
             mBackIcon = new BackButtonDrawable(ctx.getDrawable(R.drawable.ic_sysbar_back));
             mBackLandIcon = mBackIcon;
 
-            mHomeDefaultIcon = ctx.getDrawable(R.drawable.ic_sysbar_home);
+            mHomeDefaultIcon = ctx.getDrawable(R.drawable.ic_sysbar_home_pixel);
             mRecentIcon = ctx.getDrawable(R.drawable.ic_sysbar_recent);
             mMenuIcon = ctx.getDrawable(R.drawable.ic_sysbar_menu);
             mImeIcon = ctx.getDrawable(R.drawable.ic_ime_switcher_default);
