@@ -3999,6 +3999,13 @@ public final class Settings {
         public static final String APP_SIDEBAR_SHOW_TRIGGER = "app_sidebar_show_trigger";
 
         /**
+         * App sidebar hide timeout
+         *
+         * @hide
+         */
+        public static final String APP_SIDEBAR_HIDE_TIMEOUT = "app_sidebar_hide_timeout";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
