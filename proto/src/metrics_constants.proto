@@ -2218,6 +2218,7 @@ message MetricsEvent {
 
     //XPerience
     XPERIENCE_SETTINGS = 500;
+    RAINBOW_UNICORN = 600;
 
     // Extensions
     EXTENSIONS = 414;
