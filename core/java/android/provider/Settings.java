@@ -4029,13 +4029,17 @@ public final class Settings {
         /**
          * @hide
          */
+        public static final String STATUSBAR_BATTERY_BAR_ENABLE_CHARGING_COLOR = "battery_bar_enable_charging_color";
+
+        /**
+         * @hide
+         */
         public static final String STATUSBAR_BATTERY_BAR_BLEND_COLORS = "battery_bar_blend_color";
 
         /**
          * @hide
          */
         public static final String STATUSBAR_BATTERY_BAR_BLEND_COLORS_REVERSE = "battery_bar_blend_color_reverse";
-
         /**
          * These are all public system settings
          *
