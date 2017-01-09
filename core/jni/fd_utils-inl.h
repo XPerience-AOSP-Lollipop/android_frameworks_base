@@ -292,7 +292,6 @@ class FileDescriptorInfo {
     static const std::string kOverlayDir = "/system/vendor/overlay/";
     static const std::string kVendorOverlayDir = "/vendor/overlay";
     static const std::string kOverlaySubdir = "/system/vendor/overlay-subdir/";
-    static const std::string kApkSuffix = ".apk";
 
     if ((StartsWith(path, kOverlayDir) || StartsWith(path, kOverlaySubdir)
          || StartsWith(path, kVendorOverlayDir))
