@@ -1126,17 +1126,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             updateCarrier();
         }
 
-<<<<<<< HEAD
-=======
-        // make sure carrier label is not covered by navigation bar
-        if (mCarrierLabel != null && mNavigationController.getBar() != null) {
-            MarginLayoutParams mlp = (MarginLayoutParams) mCarrierLabel.getLayoutParams();
-            if (mlp != null && mlp.bottomMargin < mContext.getResources().getDimensionPixelSize(R.dimen.navigation_bar_size)) {
-                mlp.bottomMargin = mContext.getResources().getDimensionPixelSize(R.dimen.navigation_bar_size);
-                mCarrierLabel.setLayoutParams(mlp);
-            }
-        }
->>>>>>> fc3f1ea... DUI: Initial DUI checkin for N
         mFlashlightController = new FlashlightController(mContext);
         mKeyguardBottomArea.setFlashlightController(mFlashlightController);
         mKeyguardBottomArea.setPhoneStatusBar(this);
@@ -1717,11 +1706,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         prepareNavigationBarView();
 
-<<<<<<< HEAD
         mWindowManager.updateViewLayout(mNavigationBarView, mNavigationBarView.getLayoutParams());
-=======
-        mWindowManager.updateViewLayout(mNavigationController.getBar().getBaseView(), getNavigationBarLayoutParams());
->>>>>>> fc3f1ea... DUI: Initial DUI checkin for N
+
     }
 
     private void notifyNavigationBarScreenOn(boolean screenOn) {
@@ -3065,11 +3051,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
 
         mExpandedVisible = true;
-<<<<<<< HEAD
-=======
+
         if (mNavigationController.getBar() != null)
             mNavigationController.getBar().setSlippery(true);
->>>>>>> fc3f1ea... DUI: Initial DUI checkin for N
 
         // Expand the window to encompass the full screen in anticipation of the drag.
         // This is only possible to do atomically because the status bar is at the top of the screen!
@@ -3207,12 +3191,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mNotificationPanel.closeQs();
 
         mExpandedVisible = false;
-<<<<<<< HEAD
 
-=======
         if (mNavigationController.getBar() != null)
             mNavigationController.getBar().setSlippery(false);
->>>>>>> fc3f1ea... DUI: Initial DUI checkin for N
         visibilityChanged(false);
 
         // Shrink the window to the size of the status bar only
@@ -4682,14 +4663,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mNotificationPanel.onAffordanceLaunchEnded();
         mNotificationPanel.animate().cancel();
         mNotificationPanel.setAlpha(1f);
-<<<<<<< HEAD
+
         Trace.endSection();
-=======
 
         if (mNavigationController.getBar() != null) {
             mNavigationController.getBar().setKeyguardShowing(false);
         }
->>>>>>> fc3f1ea... DUI: Initial DUI checkin for N
         return staying;
     }
 
