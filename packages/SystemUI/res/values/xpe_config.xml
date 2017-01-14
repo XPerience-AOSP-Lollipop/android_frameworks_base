@@ -17,5 +17,7 @@
 <resources>
     <!-- configurable width dimension for the app sidebar trigger area -->
     <dimen name="config_app_sidebar_trigger_width">8dip</dimen>
-
+    <!-- Burn in protection -->
+    <bool name="config_statusBarBurnInProtection">false</bool>
+    <integer name="config_shift_interval">60</integer>
 </resources>
