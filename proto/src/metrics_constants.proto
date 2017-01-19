@@ -2230,5 +2230,9 @@ message MetricsEvent {
     // Settings -> Backup & Reset -> Feature Preferences
     FEATURE_PREFERENCES = 501;
 
+    // OPEN: QS NFC tile shown
+    // ACTION: QS NFC tile tapped
+	QS_NFC = 502;
+
   }
 }
