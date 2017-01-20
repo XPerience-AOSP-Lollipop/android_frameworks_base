@@ -60,7 +60,6 @@
 #include "BootAnimation.h"
 
 #include <private/regionalization/Environment.h>
-#define THEME_BOOTANIMATION_FILE "/data/system/theme/bootanimation.zip"
 
 #include "audioplay.h"
 
