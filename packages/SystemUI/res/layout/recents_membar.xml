@@ -30,7 +30,7 @@
           android:layout_width="match_parent"
           android:layout_gravity="top|left"
           android:layout_marginTop="6dp"
-          android:layout_margintRight="16dp"
+          android:layout_marginRight="16dp"
           android:layout_marginLeft="16dp" />
 
      <TextView
@@ -39,7 +39,7 @@
           android:layout_height="wrap_content"
           android:layout_gravity="top|left"
           android:layout_marginRight="5dp"
-          android:layout_marginLeft="15"
+          android:layout_marginLeft="15dp"
           android:textColor="#FFFFFF"
           android:textSize="14sp" />
 
