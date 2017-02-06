@@ -50,4 +50,6 @@
   <!-- Single handed mode -->
   <string name="singlehandmode_click_hint_message">点击窗口外部退出窗口模式</string>
   <string name="singlehandmode_slide_hint_message">滑动导航栏切换标准模式及窗口模式</string>
+  <!--Free Mem Bar-->
+  <!-- App sidebar -->
 </resources>

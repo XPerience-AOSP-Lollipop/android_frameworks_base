@@ -50,4 +50,14 @@
   <!-- Single handed mode -->
   <string name="singlehandmode_click_hint_message">Toca afuera de la pantalla para salir de la mini pantalla</string>
   <string name="singlehandmode_slide_hint_message">Desliza tu dedo a través de la barra de navegación para cambiar entre la vista estándar y mini pantalla</string>
+  <!--Free Mem Bar-->
+  <string name="recents_free_ram">Memoria RAM libre: %1$d MB</string>
+  <!-- App sidebar -->
+  <string name="default_folder_text">Carpeta</string>
+  <string name="title_activity_sidebar_configuration">Configuración de contenido de la barra</string>
+  <string name="action_save">Guardar</string>
+  <string name="toast_items_saved">Contenido de la barra guardado.</string>
+  <string name="content_setup_instructions">Añadir elementos a la barra presionando de forma prolongada en la derecha de cualquier elemento y arrastrándolo a la barra.\n\nCombinar elementos en carpetas soltándolos sobre un elemento existente en la barra.\n\nPara borrar un elemento arrástrelo fuera de la \@appbar.</string>
+  <string name="content_setup_dismiss">Siguiente</string>
+  <string name="toast_not_installed">La aplicación no está instalada</string>
 </resources>
