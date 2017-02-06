@@ -51,5 +51,13 @@
   <string name="singlehandmode_click_hint_message">Toque fora da tela para sair da mini tela</string>
   <string name="singlehandmode_slide_hint_message">Deslize seu dedo através da barra de navegação para alternar entre os modos de exibição de tela padrão e pequeno</string>
   <!--Free Mem Bar-->
+  <string name="recents_free_ram"> RAM Livre: %1$d MB </string>
   <!-- App sidebar -->
+  <string name="default_folder_text">Pasta</string>
+  <string name="title_activity_sidebar_configuration">Configuração de conteúdo AppBar</string>
+  <string name="action_save">Salvar</string>
+  <string name="toast_items_saved">Os itens da Appbar foram salvos.</string>
+  <string name="content_setup_instructions">Adicione itens a Appbar com um toque longo e arrastando-o para a Appbar.\n\nJunte itens em pastas ao colocar um item sobre o outro na Appbar.\n\nPara remover um item simplesmente arraste-o para fora da \@appbar.</string>
+  <string name="content_setup_dismiss">Continuar</string>
+  <string name="toast_not_installed">O aplicativo não está instalado</string>
 </resources>

@@ -51,5 +51,13 @@
   <string name="singlehandmode_click_hint_message">点击窗口外部退出窗口模式</string>
   <string name="singlehandmode_slide_hint_message">滑动导航栏切换标准模式及窗口模式</string>
   <!--Free Mem Bar-->
+  <string name="recents_free_ram"> 可用内存：%1$d MB </string>
   <!-- App sidebar -->
+  <string name="default_folder_text">夹</string>
+  <string name="title_activity_sidebar_configuration">Appbar 内容设置</string>
+  <string name="action_save">保存</string>
+  <string name="toast_items_saved">Appbar 项目已被保存。</string>
+  <string name="content_setup_instructions">通过长按右侧任何项目将项目添加到Appbar中，然后将其拖到Appbar。\n\n将项目拖放到Appbar中的任何现有项目上，将项目合并到文件夹中。\n\n要删除项目，只需将其拖动 出来的\ @appbar。</string>
+  <string name="content_setup_dismiss">继续</string>
+  <string name="toast_not_installed">应用程序未安装</string>
 </resources>
