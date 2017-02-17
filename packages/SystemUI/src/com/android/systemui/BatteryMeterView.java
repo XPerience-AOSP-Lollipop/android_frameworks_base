@@ -36,6 +36,8 @@ public class BatteryMeterView extends ImageView implements
 
     private static final String STATUS_BAR_BATTERY_STYLE =
             "cmsystem:" + CMSettings.System.STATUS_BAR_BATTERY_STYLE;
+    private static final String STATUS_BAR_SHOW_BATTERY_PERCENT =
+            "cmsystem:" + CMSettings.System.STATUS_BAR_SHOW_BATTERY_PERCENT;
 
     private BatteryMeterDrawable mDrawable;
     private final String mSlotBattery;
@@ -86,6 +88,8 @@ public class BatteryMeterView extends ImageView implements
             setVisibility(icons.contains(mSlotBattery) ? View.GONE : View.VISIBLE);
         } else if (STATUS_BAR_BATTERY_STYLE.equals(key)) {
             updateBatteryStyle(newValue);
+        } else if (STATUS_BAR_SHOW_BATTERY_PERCENT.equals(key)) {
+            mDrawable.updatePercent();
         }
     }
 
@@ -150,5 +154,9 @@ public class BatteryMeterView extends ImageView implements
     private void restoreDrawableAttributes() {
         mDrawable.setBatteryController(mBatteryController);
         mDrawable.startListening();
+    }
+
+    public void setChargingAnimationsEnabled(boolean animate) {
+        mDrawable.setChargingAnimationsEnabled(animate);
     }
 }
