@@ -64,6 +64,7 @@ static const char* kPathWhitelist[] = {
 #ifdef PATH_WHITELIST_EXTRA_H
 PATH_WHITELIST_EXTRA_H
 #endif
+
 };
 
 static const char* kFdPath = "/proc/self/fd";
@@ -285,6 +286,26 @@ class FileDescriptorInfo {
       return true;
     }
 
+    static const std::string kResourceCachePrefix = "/data/resource-cache/";
+    static const std::string kIdmapSuffix = "idmap";
+    if (path.compare(0, kResourceCachePrefix.size(), kResourceCachePrefix) == 0 &&
+        path.compare(path.size() - kIdmapSuffix.size(), kIdmapSuffix.size(), kIdmapSuffix) == 0) {
+        return true;
+    }
+
+    static const std::string kSystemVendorOverlayPrefix = "/system/vendor/overlay/";
+    static const std::string kApkSuffix = ".apk";
+    if (path.compare(0, kSystemVendorOverlayPrefix.size(), kSystemVendorOverlayPrefix) == 0 &&
+        path.compare(path.size() - kApkSuffix.size(), kApkSuffix.size(), kApkSuffix) == 0) {
+        return true;
+    }
+
+    static const std::string kVendorOverlayPrefix = "/vendor/overlay/";
+    if (path.compare(0, kVendorOverlayPrefix.size(), kVendorOverlayPrefix) == 0 &&
+        path.compare(path.size() - kApkSuffix.size(), kApkSuffix.size(), kApkSuffix) == 0) {
+        return true;
+	}
+
     // Whitelist files needed for Runtime Resource Overlay, like these:
     // /system/vendor/overlay/framework-res.apk
     // /system/vendor/overlay-subdir/pg/framework-res.apk
@@ -416,7 +437,7 @@ class FileDescriptorTable {
   // Creates a new FileDescriptorTable. This function scans
   // /proc/self/fd for the list of open file descriptors and collects
   // information about them. Returns NULL if an error occurs.
-  static FileDescriptorTable* Create() {
+  static FileDescriptorTable* Create(bool permissive = false) {
     DIR* d = opendir(kFdPath);
     if (d == NULL) {
       ALOGE("Unable to open directory %s: %s", kFdPath, strerror(errno));
@@ -434,12 +455,15 @@ class FileDescriptorTable {
 
       FileDescriptorInfo* info = FileDescriptorInfo::createFromFd(fd);
       if (info == NULL) {
-        if (closedir(d) == -1) {
-          ALOGE("Unable to close directory : %s", strerror(errno));
+        if (!permissive) {
+          if (closedir(d) == -1) {
+            ALOGE("Unable to close directory : %s", strerror(errno));
+          }
+          return NULL;
         }
-        return NULL;
+      } else {
+        open_fd_map[fd] = info;
       }
-      open_fd_map[fd] = info;
     }
 
     if (closedir(d) == -1) {
