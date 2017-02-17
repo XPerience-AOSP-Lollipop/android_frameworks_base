@@ -2398,7 +2398,7 @@ public class PackageManagerService extends IPackageManager.Stub {
                     // Collect overlay in <Package>/system/vendor
                     scanDirLI(new File(RegionalizationSystemDir, "vendor/overlay"),
                             PackageParser.PARSE_IS_SYSTEM | PackageParser.PARSE_IS_SYSTEM_DIR,
-                            scanFlags | SCAN_TRUSTED_OVERLAY, 0);
+                            scanFlags, 0);
                 }
             }
 
@@ -21350,12 +21350,6 @@ Slog.v(TAG, ":: stepped forward, applying functor at tag " + parser.getName());
             return mProtectedPackages.isPackageDataProtected(userId, packageName);
         }
 
-        @Override
-        public boolean wasPackageEverLaunched(String packageName, int userId) {
-            synchronized (mPackages) {
-                return mSettings.wasPackageEverLaunchedLPr(packageName, userId);
-            }
-
 		@Override
         public List<PackageInfo> getOverlayPackages(int userId) {
             final ArrayList<PackageInfo> overlayPackages = new ArrayList<PackageInfo>();
@@ -21395,6 +21389,13 @@ Slog.v(TAG, ":: stepped forward, applying functor at tag " + parser.getName());
                 ps.setResourceDirs(resourceDirs, userId);
             }
         }
+
+        @Override
+        public boolean wasPackageEverLaunched(String packageName, int userId) {
+            synchronized (mPackages) {
+                return mSettings.wasPackageEverLaunchedLPr(packageName, userId);
+              }
+         }
     }
 
     @Override
