@@ -17,14 +17,47 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Quick Settings tiles -->
+  <string name="quick_settings_screenshot_label">Ekran Görüntüsü</string>
+  <string name="quick_settings_sync_label">Senkronizasyon</string>
+  <string name="accessibility_quick_settings_sync_off">Senkronizasyon kapalı</string>
+  <string name="accessibility_quick_settings_sync_on">Senkronizasyon açık</string>
+  <string name="accessibility_quick_settings_sync_changed_off">Senkronizasyon kapatıldı</string>
+  <string name="accessibility_quick_settings_sync_changed_on">Senkronizasyon açıldı</string>
   <!-- Reboot/Recovery QS Tile -->
+  <string name="quick_settings_reboot_label">Yeniden başlat</string>
+  <string name="quick_settings_reboot_recovery_label">Kurtarma</string>
+  <string name="accessibility_quick_settings_usb_tether_off">USB internet paylaşımı kapalı</string>
+  <string name="accessibility_quick_settings_usb_tether_on">USB internet paylaşımı açık</string>
+  <string name="accessibility_quick_settings_usb_tether_changed_off">USB internet paylaşımı kapatıldı</string>
+  <string name="accessibility_quick_settings_usb_tether_changed_on">USB internet paylaşımı açıldı</string>
+  <string name="quick_settings_usb_tether_label">USB internet paylaşımı</string>
+  <string name="quick_settings_music_label">Müzik</string>
+  <string name="quick_settings_music_play">Başlat</string>
+  <string name="quick_settings_music_pause">Duraklat</string>
+  <string name="quick_settings_ime_tile_label">Giriş yöntemi</string>
+  <string name="quick_settings_caffeine_label">Kafein</string>
+  <string name="accessibility_quick_settings_caffeine_off">Kafein kapalı</string>
+  <string name="accessibility_quick_settings_caffeine_on">Kafein açık</string>
   <!-- Path data for portrait battery -->
   <!-- Path data for landscape battery -->
   <!-- Path data for circle battery -->
   <!-- QuickSettings: NFC tile [CHAR LIMIT=NONE] -->
+  <string name="quick_settings_nfc_label">NFC (Yakın Alan İletişimi)</string>
   <!-- QuickSettings: NFC (off) [CHAR LIMIT=NONE] -->
+  <string name="quick_settings_nfc_off">NFC devre dışı</string>
   <!-- QuickSettings: NFC (on) [CHAR LIMIT=NONE] -->
+  <string name="quick_settings_nfc_on">NFC etkin</string>
   <!-- Single handed mode -->
+  <string name="singlehandmode_click_hint_message">Mini ekran modundan çıkmak için ekranın dışına dokunun</string>
+  <string name="singlehandmode_slide_hint_message">Standart ve mini ekran görünümleri arasında geçiş yapmak için parmağınızı gezinti çubuğunun üzerinde kaydırın</string>
   <!--Free Mem Bar-->
+  <string name="recents_free_ram"> Boş RAM: %1$d MB</string>
   <!-- App sidebar -->
+  <string name="default_folder_text">Klasör</string>
+  <string name="title_activity_sidebar_configuration">Uygulama çubuğu içerik kurulumu</string>
+  <string name="action_save">Kaydet</string>
+  <string name="toast_items_saved">Uygulama Çubuğu öğeleri kaydedildi.</string>
+  <string name="content_setup_instructions">Uygulama Çubuğuna öğe eklemek için sağdaki herhangi bir öğeye basılı tutun ve uygulama çubuğuna sürükleyin.\n\nÖğeleri klasörlerde birleştirmek için Uygulama Çubuğundaki varolan öğelerin üzerine sürükleyin.\n\nBir öğeyi kaldırmak için onu Uygulama Çubuğu\'nun dışına sürükleyin.</string>
+  <string name="content_setup_dismiss">Devam et</string>
+  <string name="toast_not_installed">Uygulama yüklenmedi</string>
 </resources>
