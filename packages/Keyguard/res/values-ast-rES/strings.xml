@@ -98,7 +98,7 @@
   <!-- Description of the Enter button in a KeyboardView. [CHAR LIMIT=NONE] -->
   <string name="keyboardview_keycode_enter">Intro</string>
   <!-- Message shown in pattern unlock after some number of unsuccessful attempts -->
-  <string name="kg_forgot_pattern_button_text">¿Escaecisti\'l patrón?</string>
+  <string name="kg_forgot_pattern_button_text">Patrón escaecíu</string>
   <!-- Message shown when user enters wrong pattern -->
   <string name="kg_wrong_pattern">El patrón ye incorreutu</string>
   <!-- Message shown when user enters wrong password -->
@@ -124,7 +124,7 @@
   <!-- Message shown when the user needs to confirm the PIN they just entered in the PUK screen -->
   <string name="kg_enter_confirm_pin_hint">Confirma\'l códigu PIN</string>
   <!-- Message shown in dialog while the device is unlocking the SIM card -->
-  <string name="kg_sim_unlock_progress_dialog_message">Desbloquiando tarxeta SIM…</string>
+  <string name="kg_sim_unlock_progress_dialog_message">Desbloquiando tarxeta SIM\u2026</string>
   <!-- Message shown when the user enters an invalid SIM pin password in PUK screen -->
   <string name="kg_invalid_sim_pin_hint">Inxerta un códigu PIN con una llonxitú ente cuatro y ocho díxitos.</string>
   <!-- Message shown when the user enters an invalid PUK code in the PUK screen -->
@@ -132,7 +132,7 @@
   <!-- Message shown when the user enters an invalid PUK code -->
   <string name="kg_invalid_puk">Vuelvi a inxertar el códigu PUK correutu. Si inxertes un códigu incorreutu delles vegaes, va inhabilitase la tarxeta SIM.</string>
   <!-- String shown in PUK screen when PIN codes don't match -->
-  <string name="kg_invalid_confirm_pin_hint" product="default">Los códigos PIN nun concasen.</string>
+  <string name="kg_invalid_confirm_pin_hint" product="default">Los códigos PIN nun concasen</string>
   <!-- Message shown when the user exceeds the maximum number of pattern attempts -->
   <string name="kg_login_too_many_attempts">Abondos intentos incorreutos de crear el patrón</string>
   <!-- Message shown in dialog when max number of attempts are reached for PIN screen of keyguard -->
@@ -177,10 +177,10 @@
          with PUK failed. Displayed in one line in a large font.  -->
   <string name="kg_password_puk_failed">Fallu al intentar desbloquiar la tarxeta SIM col códigu PUK</string>
   <!-- Notification telling the user that the PIN1 they entered is valid -->
-  <string name="kg_pin_accepted">Códigu aceutáu</string>
+  <string name="kg_pin_accepted">¡Códigu aceutáu!</string>
   <!-- On the keyguard screen, it shows the carrier the phone is connected to.
         This is displayed if the phone is not connected to a carrier.-->
-  <string name="keyguard_carrier_default">Ensin serviciu</string>
+  <string name="keyguard_carrier_default">Ensin serviciu.</string>
   <!-- Content description of the switch input method button for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
   <!-- Description of airplane mode -->
   <string name="airplane_mode">Mou avión</string>

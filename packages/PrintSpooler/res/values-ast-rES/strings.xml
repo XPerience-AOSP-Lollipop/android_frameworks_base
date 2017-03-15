@@ -51,13 +51,13 @@
   <!-- Title of the message that the printing application crashed. [CHAR LIMIT=50] -->
   <string name="printing_app_crashed">Falló l\'aplicación d\'impresión</string>
   <!-- Title for the temporary dialog show while an app is generating a print job. [CHAR LIMIT=30] -->
-  <string name="generating_print_job">Xenerando trabayu d\'impresión</string>
+  <string name="generating_print_job">Xenerando trabayu d\'imprentación</string>
   <!-- Title for the save as PDF option in the printer list. [CHAR LIMIT=30] -->
   <string name="save_as_pdf">Guardar como PDF</string>
   <!-- Title for the open all printers UI option in the printer list. [CHAR LIMIT=30] -->
   <string name="all_printers">Toles imprentadores&#8230;</string>
   <!-- Title for the print dialog announced to the user for accessibility. Not shown in the UI. [CHAR LIMIT=none] -->
-  <string name="print_dialog">Cuadru de diálogu d\'impresión</string>
+  <string name="print_dialog">Diálogu d\'imprentación</string>
   <!-- Template for the message that shows the current page out of the total number of pages [CHAR LIMIT=none] -->
   <string name="current_page_template"><xliff:g id="current_page">%1$d</xliff:g>
         /<xliff:g id="page_count">%2$d</xliff:g></string>
