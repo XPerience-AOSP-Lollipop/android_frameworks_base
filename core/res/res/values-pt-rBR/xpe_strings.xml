@@ -16,7 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
   <!-- Single handed mode -->
-  <string name="singlehandmode_click_hint_message">Toque fora da tela para sair da mini tela</string>
+  <string name="singlehandmode_click_hint_message">Toque na área escurecida para sair do modo de uma mão</string>
   <string name="singlehandmode_slide_hint_message">Deslize seu dedo através da barra de navegação para alternar entre os modos de exibição de tela padrão e pequeno</string>
 </resources>

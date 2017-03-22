@@ -2419,7 +2419,6 @@
   <string name="car_mode_disable_notification_title">Habilitóse\'l mou coche.</string>
   <!-- Strings for tethered notification -->
   <!-- Shown when the device is tethered -->
-  <string name="tethered_notification_no_device_message">Nun hai preseos coneutaos</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
   <string name="back_button_label">Atrás</string>
   <string name="next_button_label">Siguiente</string>
