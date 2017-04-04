@@ -645,7 +645,7 @@ public class LockPatternUtils {
             }
 
             setLong(PASSWORD_TYPE_KEY, DevicePolicyManager.PASSWORD_QUALITY_SOMETHING, userId);
-            getLockSettings().setLockPattern(patternToString(pattern), savedPattern, userId);
+            getLockSettings().setLockPattern(patternToString(pattern, userId), savedPattern, userId);
             DevicePolicyManager dpm = getDevicePolicyManager();
 
             // Update the device encryption password.
