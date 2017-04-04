@@ -645,7 +645,7 @@ public class LockPatternUtils {
             }
 
             setLong(PASSWORD_TYPE_KEY, DevicePolicyManager.PASSWORD_QUALITY_SOMETHING, userId);
-            getLockSettings().setLockPattern(patternToString(pattern, userId), savedPattern, userId);
+            getLockSettings().setLockPattern(patternToString(pattern), savedPattern, userId);
             DevicePolicyManager dpm = getDevicePolicyManager();
 
             // Update the device encryption password.
@@ -708,7 +708,8 @@ public class LockPatternUtils {
 
     public void setOwnerInfoEnabled(boolean enabled, int userId) {
         setBoolean(LOCK_SCREEN_OWNER_INFO_ENABLED, enabled, userId);
-        updateCryptoUserInfo(userId);
+     
+   updateCryptoUserInfo(userId);
     }
 
     public String getOwnerInfo(int userId) {
