@@ -2020,6 +2020,12 @@
     <!-- Do Not Disturb button to change the current settings [CHAR LIMIT=20] -->
     <string name="qs_dnd_replace">Replace</string>
 
+    <!-- Carrier Name -->
+    <string name="China_Mobile">China Mobile</string>
+    <string name="China_Unicom">China Unicom</string>
+    <string name="China_Telecom">China Telecom</string>
+    <string name="China_Mobile_HD">China Mobile (HD)</string>
+
     <!-- Title of the "running foreground services" dialog. [CHAR LIMIT=NONE] -->
     <string name="running_foreground_services_title">Apps running in background</string>
 
@@ -2027,5 +2033,4 @@
         user what will happen when they tap on that item (which is an application that has
         been identified for them as running). [CHAR LIMIT=NONE] -->
     <string name="running_foreground_services_msg">Tap for details on battery and data usage</string>
-
 </resources>

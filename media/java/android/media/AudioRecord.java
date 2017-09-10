@@ -700,6 +700,12 @@ public class AudioRecord implements AudioRouting
         case AudioFormat.ENCODING_PCM_FLOAT:
         case AudioFormat.ENCODING_PCM_16BIT:
         case AudioFormat.ENCODING_PCM_8BIT:
+        case AudioFormat.ENCODING_AMRNB:
+        case AudioFormat.ENCODING_AMRWB:
+        case AudioFormat.ENCODING_EVRC:
+        case AudioFormat.ENCODING_EVRCB:
+        case AudioFormat.ENCODING_EVRCWB:
+        case AudioFormat.ENCODING_EVRCNW:
             mAudioFormat = audioFormat;
             break;
         default:
@@ -937,6 +943,9 @@ public class AudioRecord implements AudioRouting
         case (AudioFormat.CHANNEL_IN_FRONT | AudioFormat.CHANNEL_IN_BACK):
             channelCount = 2;
             break;
+        case AudioFormat.CHANNEL_IN_5POINT1:
+            channelCount = 6;
+            break;
         case AudioFormat.CHANNEL_INVALID:
         default:
             loge("getMinBufferSize(): Invalid channel configuration.");
@@ -973,6 +982,7 @@ public class AudioRecord implements AudioRouting
      */
     public void startRecording()
     throws IllegalStateException {
+        android.util.SeempLog.record(70);
         if (mState != STATE_INITIALIZED) {
             throw new IllegalStateException("startRecording() called on an "
                     + "uninitialized AudioRecord.");
@@ -996,6 +1006,7 @@ public class AudioRecord implements AudioRouting
      */
     public void startRecording(MediaSyncEvent syncEvent)
     throws IllegalStateException {
+        android.util.SeempLog.record(70);
         if (mState != STATE_INITIALIZED) {
             throw new IllegalStateException("startRecording() called on an "
                     + "uninitialized AudioRecord.");

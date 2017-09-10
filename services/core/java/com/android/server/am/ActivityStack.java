@@ -118,6 +118,8 @@ import android.util.Log;
 import android.util.Slog;
 import android.util.SparseArray;
 import android.view.Display;
+import com.android.internal.app.ActivityTrigger;
+
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.app.IVoiceInteractor;
@@ -128,6 +130,7 @@ import com.android.server.am.ActivityStackSupervisor.ActivityContainer;
 import com.android.server.wm.StackWindowController;
 import com.android.server.wm.StackWindowListener;
 import com.android.server.wm.WindowManagerService;
+import android.util.BoostFramework;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -258,6 +261,7 @@ class ActivityStack<T extends StackWindowController> extends ConfigurationContai
     T mWindowContainerController;
     private final RecentTasks mRecentTasks;
 
+    public BoostFramework mPerf = null;
     /**
      * The back history of all previous (and possibly still
      * running) activities.  It contains #TaskRecord objects.
@@ -379,8 +383,9 @@ class ActivityStack<T extends StackWindowController> extends ConfigurationContai
 
     final Handler mHandler;
 
-    private class ActivityStackHandler extends Handler {
+    static final ActivityTrigger mActivityTrigger = new ActivityTrigger();
 
+    private class ActivityStackHandler extends Handler {
         ActivityStackHandler(Looper looper) {
             super(looper);
         }
@@ -1281,6 +1286,11 @@ class ActivityStack<T extends StackWindowController> extends ConfigurationContai
 
         if (DEBUG_STATES) Slog.v(TAG_STATES, "Moving to PAUSING: " + prev);
         else if (DEBUG_PAUSE) Slog.v(TAG_PAUSE, "Start pausing: " + prev);
+
+        if (mActivityTrigger != null) {
+            mActivityTrigger.activityPauseTrigger(prev.intent, prev.info, prev.appInfo);
+        }
+
         mResumedActivity = null;
         mPausingActivity = prev;
         mLastPausedActivity = prev;
@@ -2340,7 +2350,13 @@ class ActivityStack<T extends StackWindowController> extends ConfigurationContai
 
         if (DEBUG_SWITCH) Slog.v(TAG_SWITCH, "Resuming " + next);
 
-        // If we are currently pausing an activity, then don't do anything until that is done.
+        if (mActivityTrigger != null) {
+            mActivityTrigger.activityResumeTrigger(next.intent, next.info, next.appInfo,
+                    next.getTask().mFullscreen);
+        }
+
+        // If we are currently pausing an activity, then don't do anything
+        // until that is done.
         if (!mStackSupervisor.allPausedActivitiesComplete()) {
             if (DEBUG_SWITCH || DEBUG_PAUSE || DEBUG_STATES) Slog.v(TAG_PAUSE,
                     "resumeTopActivityLocked: Skip resume: some activity pausing.");
@@ -2456,6 +2472,9 @@ class ActivityStack<T extends StackWindowController> extends ConfigurationContai
         // that the previous one will be hidden soon.  This way it can know
         // to ignore it when computing the desired screen orientation.
         boolean anim = true;
+        if (mPerf == null) {
+            mPerf = new BoostFramework();
+        }
         if (prev != null) {
             if (prev.finishing) {
                 if (DEBUG_TRANSITION) Slog.v(TAG_TRANSITION,
@@ -2467,6 +2486,9 @@ class ActivityStack<T extends StackWindowController> extends ConfigurationContai
                     mWindowManager.prepareAppTransition(prev.getTask() == next.getTask()
                             ? TRANSIT_ACTIVITY_CLOSE
                             : TRANSIT_TASK_CLOSE, false);
+                    if(prev.getTask() != next.getTask() && mPerf != null) {
+                       mPerf.perfHint(BoostFramework.VENDOR_HINT_ANIM_BOOST, next.packageName);
+                    }
                 }
                 prev.setVisibility(false);
             } else {
@@ -2481,6 +2503,9 @@ class ActivityStack<T extends StackWindowController> extends ConfigurationContai
                             : next.mLaunchTaskBehind
                                     ? TRANSIT_TASK_OPEN_BEHIND
                                     : TRANSIT_TASK_OPEN, false);
+                    if(prev.getTask() != next.getTask() && mPerf != null) {
+                       mPerf.perfHint(BoostFramework.VENDOR_HINT_ANIM_BOOST, next.packageName);
+                    }
                 }
             }
         } else {
@@ -2868,7 +2893,13 @@ class ActivityStack<T extends StackWindowController> extends ConfigurationContai
         }
         task.setFrontOfTask();
 
-        if (!isHomeOrRecentsStack() || numActivities() > 0) {
+        if (mActivityTrigger != null) {
+            mActivityTrigger.activityStartTrigger(r.intent, r.info, r.appInfo, r.getTask().mFullscreen);
+        }
+        if (!isHomeStack() || numActivities() > 0) {
+            // We want to show the starting preview window if we are
+            // switching to a new task, or the next activity's process is
+            // not currently running.
             if (DEBUG_TRANSITION) Slog.v(TAG_TRANSITION,
                     "Prepare open transition: starting " + r);
             if ((r.intent.getFlags() & Intent.FLAG_ACTIVITY_NO_ANIMATION) != 0) {
@@ -3411,11 +3442,17 @@ class ActivityStack<T extends StackWindowController> extends ConfigurationContai
             r.resumeKeyDispatchingLocked();
             try {
                 r.stopped = false;
+
                 if (DEBUG_STATES) Slog.v(TAG_STATES,
                         "Moving to STOPPING: " + r + " (stop requested)");
                 r.state = STOPPING;
                 if (DEBUG_VISIBILITY) Slog.v(TAG_VISIBILITY,
                         "Stopping visible=" + r.visible + " for " + r);
+
+                if (mActivityTrigger != null) {
+                    mActivityTrigger.activityStopTrigger(r.intent, r.info, r.appInfo);
+                }
+
                 if (!r.visible) {
                     r.setVisible(false);
                 }

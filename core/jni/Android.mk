@@ -32,6 +32,7 @@ LOCAL_CFLAGS += -DGL_GLEXT_PROTOTYPES -DEGL_EGLEXT_PROTOTYPES
 LOCAL_CFLAGS += -DU_USING_ICU_NAMESPACE=0
 
 LOCAL_SRC_FILES:= \
+    android_util_SeempLog.cpp \
     AndroidRuntime.cpp \
     com_android_internal_content_NativeLibraryHelper.cpp \
     com_google_android_gles_jni_EGLImpl.cpp \
@@ -194,12 +195,14 @@ LOCAL_SRC_FILES:= \
     com_android_internal_view_animation_NativeInterpolatorFactoryHelper.cpp \
     hwbinder/EphemeralStorage.cpp \
     fd_utils.cpp \
+    com_android_internal_app_ActivityTrigger.cpp
 
 LOCAL_C_INCLUDES += \
     $(LOCAL_PATH)/include \
     $(JNI_H_INCLUDE) \
     $(LOCAL_PATH)/android/graphics \
     $(LOCAL_PATH)/../../libs/hwui \
+    $(LOCAL_PATH)/../../libs/regionalization \
     $(LOCAL_PATH)/../../../native/vulkan/include \
     $(call include-path-for, bluedroid) \
     $(call include-path-for, libhardware)/hardware \
@@ -293,6 +296,7 @@ LOCAL_SHARED_LIBRARIES := \
 LOCAL_SHARED_LIBRARIES += \
     libhwui \
     libdl \
+    libregionalization
 
 # our headers include libnativewindow's public headers
 LOCAL_EXPORT_SHARED_LIBRARY_HEADERS := \

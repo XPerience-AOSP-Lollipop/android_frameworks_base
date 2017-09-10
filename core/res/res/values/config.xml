@@ -567,6 +567,10 @@
     <!-- Operating volatage for wifi radio. 0 by default-->
     <integer translatable="false" name="config_wifi_operating_voltage_mv">0</integer>
 
+    <!-- List of names that represent dual SoftAp interfaces. -->
+    <string-array translatable="false" name="config_wifi_dual_sap_interfaces">
+    </string-array>
+
     <!-- Flag indicating whether the we should enable the automatic brightness in Settings.
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">false</bool>
@@ -1401,6 +1405,9 @@
         <item>network,false,false,false,false,true,true,true,1,2</item>
         -->
     </string-array>
+
+    <!-- Component name of the combo network location provider. -->
+    <string name="config_comboNetworkLocationProvider" translatable="false">com.qualcomm.location</string>
 
     <!-- Boolean indicating if current platform supports bluetooth SCO for off call
     use cases -->
@@ -2284,6 +2291,9 @@
     <!-- Flag indicating which package name can access the persistent data partition -->
     <string name="config_persistentDataPackageName" translatable="false"></string>
 
+    <!--  Define optional package verifier name -->
+    <string name="config_optionalPackageVerifierName" translatable="false"></string>
+
     <!-- Flag indicating apps will skip sending hold request before merge. In this case
         IMS service implementation will do both.i.e.hold followed by merge. -->
     <bool name="skipHoldBeforeMerge">true</bool>
@@ -2330,10 +2340,10 @@
 
     <!-- ImsService package name to bind to by default. If none is specified in an overlay, an
          empty string is passed in -->
-    <string name="config_ims_package"/>
+    <string name="config_ims_package">org.codeaurora.ims</string>
 
     <!-- Flag specifying whether or not IMS will use the dynamic ImsResolver -->
-    <bool name="config_dynamic_bind_ims">false</bool>
+    <bool name="config_dynamic_bind_ims">true</bool>
 
     <bool name="config_networkSamplingWakesDevice">true</bool>
 
@@ -2887,6 +2897,12 @@
     <!-- The apps that need to be hidden when they are disabled -->
     <string-array name="config_hideWhenDisabled_packageNames"></string-array>
 
+    <!-- The duration (in milliseconds) for the outgoing sms authorization request to timeout.-->
+    <integer name="config_sms_authorization_timeout_ms">0</integer>
+
+    <!-- Enable sms authorization framework-->
+    <bool name="config_sms_authorization_enabled">false</bool>
+
     <!-- Additional non-platform defined global settings exposed to Instant Apps -->
     <string-array name="config_allowedGlobalInstantAppSettings"></string-array>
 
@@ -2902,6 +2918,9 @@
     <!-- Volume level of in-call notification tone playback,
          relative to the overall voice call stream volume [0..100] -->
     <integer name="config_inCallNotificationVolumeRelative">67</integer>
+
+    <!-- Configuartion to support SIM contact batch operation.-->
+    <bool name="config_sim_phonebook_batch_operation">true</bool>
 
     <!-- An array of packages that need to be treated as type system in battery settings -->
     <string-array translatable="false" name="config_batteryPackageTypeSystem">

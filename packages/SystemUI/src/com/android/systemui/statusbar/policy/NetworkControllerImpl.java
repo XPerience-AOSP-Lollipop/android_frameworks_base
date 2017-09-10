@@ -65,6 +65,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
+import static android.net.ConnectivityManager.TETHERING_WIFI;
 
 /** Platform implementation of the network controller. **/
 public class NetworkControllerImpl extends BroadcastReceiver
@@ -393,11 +394,12 @@ public class NetworkControllerImpl extends BroadcastReceiver
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... args) {
-                // Disable tethering if enabling Wifi
+                // Disable tethering if enabling Wifi OR skip in case of STA + SAP concurrency
                 final int wifiApState = mWifiManager.getWifiApState();
-                if (enabled && ((wifiApState == WifiManager.WIFI_AP_STATE_ENABLING) ||
+                if (enabled && (!mWifiManager.getWifiStaSapConcurrency()) &&
+                        ((wifiApState == WifiManager.WIFI_AP_STATE_ENABLING) ||
                         (wifiApState == WifiManager.WIFI_AP_STATE_ENABLED))) {
-                    mWifiManager.setWifiApEnabled(null, false);
+                    mConnectivityManager.stopTethering(TETHERING_WIFI);
                 }
 
                 mWifiManager.setWifiEnabled(enabled);
@@ -968,6 +970,8 @@ public class NetworkControllerImpl extends BroadcastReceiver
         boolean show4gForLte = false;
         boolean hideLtePlus = false;
         boolean hspaDataDistinguishable;
+        boolean readIconsFromXml;
+        boolean showRsrpSignalLevelforLTE;
 
         static Config readConfig(Context context) {
             Config config = new Config();
@@ -980,6 +984,9 @@ public class NetworkControllerImpl extends BroadcastReceiver
             config.hspaDataDistinguishable =
                     res.getBoolean(R.bool.config_hspa_data_distinguishable);
             config.hideLtePlus = res.getBoolean(R.bool.config_hideLtePlus);
+            config.readIconsFromXml = res.getBoolean(R.bool.config_read_icons_from_xml);
+            config.showRsrpSignalLevelforLTE =
+                    res.getBoolean(R.bool.config_showRsrpSignalLevelforLTE);
             return config;
         }
     }

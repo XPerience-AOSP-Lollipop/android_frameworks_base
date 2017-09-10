@@ -252,8 +252,14 @@ public class AppOpsManager {
     public static final int OP_INSTANT_APP_START_FOREGROUND = 68;
     /** @hide Answer incoming phone calls */
     public static final int OP_ANSWER_PHONE_CALLS = 69;
+    /** @hide CHANGE_WIFI_STATE . */
+    public static final int OP_CHANGE_WIFI_STATE = 70;
+    /** @hide BLUETOOTH_ADMIN . */
+    public static final int OP_BLUETOOTH_ADMIN = 71;
     /** @hide */
-    public static final int _NUM_OP = 70;
+    public static final int OP_AUTO_START = 72;
+    /** @hide */
+    public static final int _NUM_OP = 73;
 
     /** Access to coarse location information. */
     public static final String OPSTR_COARSE_LOCATION = "android:coarse_location";
@@ -365,9 +371,16 @@ public class AppOpsManager {
     /** Answer incoming phone calls */
     public static final String OPSTR_ANSWER_PHONE_CALLS
             = "android:answer_phone_calls";
-
+    /** @hide CHANGE_WIFI_STATE . */
+    public static final String OPSTR_CHANGE_WIFI_STATE
+            = "android:change_wifi_state";
+    /** @hide BLUETOOTH_ADMIN . */
+    public static final String OPSTR_BLUETOOTH_ADMIN
+            = "android:bluetooth_admin";
     // Warning: If an permission is added here it also has to be added to
     // com.android.packageinstaller.permission.utils.EventLogger
+    /** @hide */
+    public static final String OPSTR_AUTO_START = "android:auto_start";
     private static final int[] RUNTIME_AND_APPOP_PERMISSIONS_OPS = {
             // RUNTIME PERMISSIONS
             // Contacts
@@ -492,7 +505,10 @@ public class AppOpsManager {
             OP_REQUEST_INSTALL_PACKAGES,
             OP_PICTURE_IN_PICTURE,
             OP_INSTANT_APP_START_FOREGROUND,
-            OP_ANSWER_PHONE_CALLS
+            OP_ANSWER_PHONE_CALLS,
+            OP_CHANGE_WIFI_STATE,
+            OP_BLUETOOTH_ADMIN,
+            OP_AUTO_START,
     };
 
     /**
@@ -570,6 +586,9 @@ public class AppOpsManager {
             OPSTR_PICTURE_IN_PICTURE,
             OPSTR_INSTANT_APP_START_FOREGROUND,
             OPSTR_ANSWER_PHONE_CALLS,
+            OPSTR_CHANGE_WIFI_STATE,
+            OPSTR_BLUETOOTH_ADMIN,
+            OPSTR_AUTO_START,
     };
 
     /**
@@ -647,6 +666,9 @@ public class AppOpsManager {
             "PICTURE_IN_PICTURE",
             "INSTANT_APP_START_FOREGROUND",
             "ANSWER_PHONE_CALLS",
+            "CHANGE_WIFI_STATE",
+            "BLUETOOTH_ADMIN",
+            "AUTO_START",
     };
 
     /**
@@ -724,6 +746,9 @@ public class AppOpsManager {
             null, // no permission for entering picture-in-picture on hide
             Manifest.permission.INSTANT_APP_FOREGROUND_SERVICE,
             Manifest.permission.ANSWER_PHONE_CALLS,
+            android.Manifest.permission.CHANGE_WIFI_STATE,
+            android.Manifest.permission.BLUETOOTH_ADMIN,
+            null, // no permission for auto start
     };
 
     /**
@@ -802,6 +827,9 @@ public class AppOpsManager {
             null, // ENTER_PICTURE_IN_PICTURE_ON_HIDE
             null, // INSTANT_APP_START_FOREGROUND
             null, // ANSWER_PHONE_CALLS
+            null, // OP_CHANGE_WIFI_STATE
+            null, // OP_BLUETOOTH_ADMIN
+            null, // OP_AUTO_START
     };
 
     /**
@@ -879,6 +907,9 @@ public class AppOpsManager {
             false, // ENTER_PICTURE_IN_PICTURE_ON_HIDE
             false, // INSTANT_APP_START_FOREGROUND
             false, // ANSWER_PHONE_CALLS
+            false, // OP_CHANGE_WIFI_STATE
+            false, // OP_BLUETOOTH_ADMIN
+            false, // OP_AUTO_START
     };
 
     /**
@@ -955,6 +986,9 @@ public class AppOpsManager {
             AppOpsManager.MODE_ALLOWED,  // OP_PICTURE_IN_PICTURE
             AppOpsManager.MODE_DEFAULT,  // OP_INSTANT_APP_START_FOREGROUND
             AppOpsManager.MODE_ALLOWED, // ANSWER_PHONE_CALLS
+            AppOpsManager.MODE_ALLOWED,  //OP_CHANGE_WIFI_STATE
+            AppOpsManager.MODE_ALLOWED,  //OP_BLUETOOTH_ADMIN
+            AppOpsManager.MODE_ALLOWED,  //OP_AUTO_START
     };
 
     /**
@@ -1035,6 +1069,9 @@ public class AppOpsManager {
             false, // OP_PICTURE_IN_PICTURE
             false,
             false, // ANSWER_PHONE_CALLS
+            false, //OP_CHANGE_WIFI_STATE
+            false, //OP_BLUETOOTH_ADMIN
+            false, //OP_AUTO_START
     };
 
     /**

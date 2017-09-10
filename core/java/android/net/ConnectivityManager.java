@@ -407,6 +407,13 @@ public class ConnectivityManager {
     public static final int TETHERING_BLUETOOTH = 2;
 
     /**
+     * WIGIG tethering type. Use a separate type to prevent
+     * conflicts with TETHERING_WIFI
+     * @hide
+     */
+    public static final int TETHERING_WIGIG = 3;
+
+    /**
      * Extra used for communicating with the TetherService. Includes the type of tethering to
      * enable if any.
      * @hide
@@ -419,6 +426,13 @@ public class ConnectivityManager {
      * @hide
      */
     public static final String EXTRA_REM_TETHER_TYPE = "extraRemTetherType";
+   /** Broadcast intent action indicating that a Station is connected
+     * or disconnected.
+     *
+     * @hide
+     */
+    public static final String TETHER_CONNECT_STATE_CHANGED =
+        "codeaurora.net.conn.TETHER_CONNECT_STATE_CHANGED";
 
     /**
      * Extra used for communicating with the TetherService. True to schedule a recheck of tether

@@ -28,6 +28,7 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.telephony.ServiceState;
 import android.telephony.SubscriptionInfo;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.text.method.SingleLineTransformationMethod;
 import android.util.AttributeSet;
@@ -52,6 +53,8 @@ public class CarrierText extends TextView {
 
     private WifiManager mWifiManager;
 
+    private boolean[] mSimErrorState = new boolean[TelephonyManager.getDefault().getPhoneCount()];
+
     private KeyguardUpdateMonitorCallback mCallback = new KeyguardUpdateMonitorCallback() {
         @Override
         public void onRefreshCarrierInfo() {
@@ -65,7 +68,24 @@ public class CarrierText extends TextView {
         public void onStartedWakingUp() {
             setSelected(true);
         };
+
+        public void onSimStateChanged(int subId, int slotId, IccCardConstants.State simState) {
+            if (slotId < 0) {
+                Log.d(TAG, "onSimStateChanged() - slotId invalid: " + slotId);
+                return;
+            }
+
+            Log.d(TAG,"onSimStateChanged: " + getStatusForIccState(simState));
+            if (getStatusForIccState(simState) == StatusMode.SimIoError) {
+                mSimErrorState[slotId] = true;
+                updateCarrierText();
+            } else if (mSimErrorState[slotId]) {
+                mSimErrorState[slotId] = false;
+                updateCarrierText();
+            }
+        };
     };
+
     /**
      * The status of this lock screen. Primarily used for widgets on LockScreen.
      */
@@ -77,7 +97,8 @@ public class CarrierText extends TextView {
         SimPukLocked, // SIM card is PUK locked because SIM entered wrong too many times
         SimLocked, // SIM card is currently locked
         SimPermDisabled, // SIM card is permanently disabled due to PUK unlock failure
-        SimNotReady; // SIM is not ready yet. May never be on devices w/o a SIM.
+        SimNotReady, // SIM is not ready yet. May never be on devices w/o a SIM.
+        SimIoError; //The sim card is faulty
     }
 
     public CarrierText(Context context) {
@@ -101,18 +122,91 @@ public class CarrierText extends TextView {
         mWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
     }
 
+    /**
+     * Checks if there are faulty cards. Adds the text depending on the slot of the card
+     * @param text: current carrier text based on the sim state
+     * @param noSims: whether a valid sim card is inserted
+     * @return text
+    */
+    private CharSequence updateCarrierTextWithSimIoError(CharSequence text, boolean noSims) {
+        final CharSequence carrier = "";
+        CharSequence carrierTextForSimState = getCarrierTextForSimState(
+            IccCardConstants.State.CARD_IO_ERROR, carrier);
+        for (int index = 0; index < mSimErrorState.length; index++) {
+            if (mSimErrorState[index]) {
+                // In the case when no sim cards are detected but a faulty card is inserted
+                // overwrite the text and only show "Invalid card"
+                if (noSims) {
+                    return concatenate(carrierTextForSimState,
+                        getContext().getText(com.android.internal.R.string.emergency_calls_only));
+                } else if (index == 0) {
+                    // prepend "Invalid card" when faulty card is inserted in slot 0
+                    text = concatenate(carrierTextForSimState, text);
+                } else {
+                    // concatenate "Invalid card" when faulty card is inserted in slot 1
+                    text = concatenate(text, carrierTextForSimState);
+                }
+            }
+        }
+        return text;
+    }
+
     protected void updateCarrierText() {
         boolean allSimsMissing = true;
         boolean anySimReadyAndInService = false;
+        boolean showLocale = getContext().getResources().getBoolean(
+                com.android.systemui.R.bool.config_monitor_locale_change);
+        boolean showRat = getContext().getResources().getBoolean(
+                com.android.systemui.R.bool.config_display_rat);
         CharSequence displayText = null;
 
         List<SubscriptionInfo> subs = mKeyguardUpdateMonitor.getSubscriptionInfo(false);
         final int N = subs.size();
         if (DEBUG) Log.d(TAG, "updateCarrierText(): " + N);
         for (int i = 0; i < N; i++) {
+            CharSequence networkClass = "";
             int subId = subs.get(i).getSubscriptionId();
             State simState = mKeyguardUpdateMonitor.getSimState(subId);
+            if (showRat) {
+                ServiceState ss = mKeyguardUpdateMonitor.mServiceStates.get(subId);
+                if (ss != null && (ss.getDataRegState() == ServiceState.STATE_IN_SERVICE
+                        || ss.getVoiceRegState() == ServiceState.STATE_IN_SERVICE)) {
+                    int networkType = TelephonyManager.NETWORK_TYPE_UNKNOWN;
+                    if (ss.getRilDataRadioTechnology() !=
+                            ServiceState.RIL_RADIO_TECHNOLOGY_UNKNOWN) {
+                        networkType = ss.getDataNetworkType();
+                    } else if (ss.getRilVoiceRadioTechnology() !=
+                                ServiceState.RIL_RADIO_TECHNOLOGY_UNKNOWN) {
+                        networkType = ss.getVoiceNetworkType();
+                    }
+                    networkClass = networkClassToString(TelephonyManager
+                            .getNetworkClass(networkType));
+                }
+            }
             CharSequence carrierName = subs.get(i).getCarrierName();
+            if ((showLocale || showRat) && !TextUtils.isEmpty(carrierName)) {
+                String[] names = carrierName.toString().split(mSeparator.toString(), 2);
+                StringBuilder newCarrierName = new StringBuilder();
+                for (int j = 0; j < names.length; j++) {
+                    if (showLocale) {
+                        names[j] = getLocalString(
+                                names[j], com.android.systemui.R.array.origin_carrier_names,
+                                com.android.systemui.R.array.locale_carrier_names);
+                    }
+                    if (!TextUtils.isEmpty(names[j])) {
+                        if (!TextUtils.isEmpty(networkClass) && showRat) {
+                            names[j] = new StringBuilder().append(names[j]).append(" ")
+                                    .append(networkClass).toString();
+                        }
+                        if (j > 0 && names[j].equals(names[j-1])) {
+                            continue;
+                        }
+                        if (j > 0) newCarrierName.append(mSeparator);
+                        newCarrierName.append(names[j]);
+                    }
+                }
+                carrierName = newCarrierName.toString();
+            }
             CharSequence carrierTextForSimState = getCarrierTextForSimState(simState, carrierName);
             if (DEBUG) {
                 Log.d(TAG, "Handling (subId=" + subId + "): " + simState + " " + carrierName);
@@ -179,6 +273,7 @@ public class CarrierText extends TextView {
             }
         }
 
+        displayText = updateCarrierTextWithSimIoError(displayText, allSimsMissing);
         // APM (airplane mode) != no carrier state. There are carrier services
         // (e.g. WFC = Wi-Fi calling) which may operate in APM.
         if (!anySimReadyAndInService && WirelessUtils.isAirplaneModeOn(mContext)) {
@@ -270,6 +365,11 @@ public class CarrierText extends TextView {
                         getContext().getText(R.string.keyguard_sim_puk_locked_message),
                         text);
                 break;
+            case SimIoError:
+                carrierText = makeCarrierStringOnEmergencyCapable(
+                        getContext().getText(R.string.lockscreen_sim_error_message_short),
+                        text);
+                break;
         }
 
         return carrierText;
@@ -319,6 +419,8 @@ public class CarrierText extends TextView {
                 return StatusMode.SimPermDisabled;
             case UNKNOWN:
                 return StatusMode.SimMissing;
+            case CARD_IO_ERROR:
+                return StatusMode.SimIoError;
         }
         return StatusMode.SimMissing;
     }
@@ -386,5 +488,39 @@ public class CarrierText extends TextView {
 
             return source;
         }
+    }
+
+    private String networkClassToString (int networkClass) {
+        final int[] classIds = {
+            com.android.systemui.R.string.config_rat_unknown,
+            com.android.systemui.R.string.config_rat_2g,
+            com.android.systemui.R.string.config_rat_3g,
+            com.android.systemui.R.string.config_rat_4g };
+        String classString = null;
+        if (networkClass < classIds.length) {
+            classString = getContext().getResources().getString(classIds[networkClass]);
+        }
+        return (classString == null) ? "" : classString;
+    }
+
+    /**
+     * parse the string to current language.
+     *
+     * @param originalString original string
+     * @param originNamesId the id of the original string array.
+     * @param localNamesId the id of the local string keys.
+     * @return local language string
+     */
+    private String getLocalString(String originalString,
+            int originNamesId, int localNamesId) {
+        String[] origNames = getContext().getResources().getStringArray(originNamesId);
+        String[] localNames = getContext().getResources().getStringArray(localNamesId);
+        for (int i = 0; i < origNames.length; i++) {
+            if (origNames[i].equalsIgnoreCase(originalString)) {
+                return getContext().getString(getContext().getResources().getIdentifier(
+                        localNames[i], "string", "com.android.systemui"));
+            }
+        }
+        return originalString;
     }
 }

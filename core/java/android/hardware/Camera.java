@@ -32,6 +32,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.os.SystemProperties;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -41,6 +42,7 @@ import android.util.Log;
 import android.text.TextUtils;
 import android.view.Surface;
 import android.view.SurfaceHolder;
+import android.os.SystemProperties;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -259,13 +261,44 @@ public class Camera {
     /**
      * Returns the number of physical cameras available on this device.
      */
-    public native static int getNumberOfCameras();
+    public static int getNumberOfCameras() {
+        boolean exposeAuxCamera = false;
+        String packageName = ActivityThread.currentOpPackageName();
+        /* Force to expose only two cameras
+         * if the package name does not falls in this bucket
+         */
+        String packageList = SystemProperties.get("vendor.camera.aux.packagelist");
+        if (packageList.length() > 0) {
+            TextUtils.StringSplitter splitter = new TextUtils.SimpleStringSplitter(',');
+            splitter.setString(packageList);
+            for (String str : splitter) {
+                if (packageName.equals(str)) {
+                    exposeAuxCamera = true;
+                    break;
+                }
+            }
+        }
+        int numberOfCameras = _getNumberOfCameras();
+        if (exposeAuxCamera == false && (numberOfCameras > 2)) {
+            numberOfCameras = 2;
+        }
+        return numberOfCameras;
+    }
+
+    /**
+     * Returns the number of physical cameras available on this device.
+     */
+    /** @hide */
+    public native static int _getNumberOfCameras();
 
     /**
      * Returns the information about a particular camera.
      * If {@link #getNumberOfCameras()} returns N, the valid id is 0 to N-1.
      */
     public static void getCameraInfo(int cameraId, CameraInfo cameraInfo) {
+        if(cameraId >= getNumberOfCameras()){
+            throw new RuntimeException("Unknown camera ID");
+        }
         _getCameraInfo(cameraId, cameraInfo);
         IBinder b = ServiceManager.getService(Context.AUDIO_SERVICE);
         IAudioService audioService = IAudioService.Stub.asInterface(b);
@@ -506,8 +539,21 @@ public class Camera {
             mEventHandler = null;
         }
 
-        return native_setup(new WeakReference<Camera>(this), cameraId, halVersion,
-                ActivityThread.currentOpPackageName());
+        String packageName = ActivityThread.currentOpPackageName();
+
+        //Force HAL1 if the package name falls in this bucket
+        String packageList = SystemProperties.get("camera.hal1.packagelist", "");
+        if (packageList.length() > 0) {
+            TextUtils.StringSplitter splitter = new TextUtils.SimpleStringSplitter(',');
+            splitter.setString(packageList);
+            for (String str : splitter) {
+                if (packageName.equals(str)) {
+                    halVersion = CAMERA_HAL_API_VERSION_1_0;
+                    break;
+                }
+            }
+        }
+        return native_setup(new WeakReference<Camera>(this), cameraId, halVersion, packageName);
     }
 
     private int cameraInitNormal(int cameraId) {
@@ -534,6 +580,9 @@ public class Camera {
 
     /** used by Camera#open, Camera#open(int) */
     Camera(int cameraId) {
+        if(cameraId >= getNumberOfCameras()){
+             throw new RuntimeException("Unknown camera ID");
+        }
         int err = cameraInitNormal(cameraId);
         if (checkInitErrors(err)) {
             if (err == -EACCES) {
@@ -810,6 +859,7 @@ public class Camera {
      * @see android.media.MediaActionSound
      */
     public final void setPreviewCallback(PreviewCallback cb) {
+        android.util.SeempLog.record(66);
         mPreviewCallback = cb;
         mOneShot = false;
         mWithBuffer = false;
@@ -836,6 +886,7 @@ public class Camera {
      * @see android.media.MediaActionSound
      */
     public final void setOneShotPreviewCallback(PreviewCallback cb) {
+        android.util.SeempLog.record(68);
         mPreviewCallback = cb;
         mOneShot = true;
         mWithBuffer = false;
@@ -874,6 +925,7 @@ public class Camera {
      * @see android.media.MediaActionSound
      */
     public final void setPreviewCallbackWithBuffer(PreviewCallback cb) {
+        android.util.SeempLog.record(67);
         mPreviewCallback = cb;
         mOneShot = false;
         mWithBuffer = true;
@@ -1436,6 +1488,7 @@ public class Camera {
      */
     public final void takePicture(ShutterCallback shutter, PictureCallback raw,
             PictureCallback jpeg) {
+        android.util.SeempLog.record(65);
         takePicture(shutter, raw, null, jpeg);
     }
     private native final void native_takePicture(int msgType);
@@ -1471,6 +1524,7 @@ public class Camera {
      */
     public final void takePicture(ShutterCallback shutter, PictureCallback raw,
             PictureCallback postview, PictureCallback jpeg) {
+        android.util.SeempLog.record(65);
         mShutterCallback = shutter;
         mRawImageCallback = raw;
         mPostviewCallback = postview;
@@ -1866,6 +1920,23 @@ public class Camera {
          * as a set. Either they are all valid, or none of them are.
          */
         public Point mouth = null;
+
+        /**
+         * {@hide}
+         */
+        public int smileDegree = 0;
+        /**
+         * {@hide}
+         */
+        public int smileScore = 0;
+        /**
+         * {@hide}
+         */
+        public int blinkDetected = 0;
+        /**
+         * {@hide}
+         */
+        public int faceRecognised = 0;
     }
 
     /**

@@ -249,6 +249,7 @@ import com.android.internal.content.PackageHelper;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.internal.os.IParcelFileDescriptorFactory;
+import com.android.internal.os.RegionalizationEnvironment;
 import com.android.internal.os.RoSystemProperties;
 import com.android.internal.os.SomeArgs;
 import com.android.internal.os.Zygote;
@@ -652,6 +653,9 @@ public class PackageManagerService extends IPackageManager.Stub
     // Directory containing the private parts (e.g. code and non-resource assets) of forward-locked
     // apps.
     final File mDrmAppPrivateInstallDir;
+
+    // Directory containing the regionalization 3rd apps.
+    final File mRegionalizationAppInstallDir;
 
     // ----------------------------------------------------------------
 
@@ -1375,6 +1379,7 @@ public class PackageManagerService extends IPackageManager.Stub
             | FLAG_PERMISSION_REVOKE_ON_UPGRADE;
 
     final @Nullable String mRequiredVerifierPackage;
+    final @Nullable String mOptionalVerifierPackage;
     final @NonNull String mRequiredInstallerPackage;
     final @NonNull String mRequiredUninstallerPackage;
     final @Nullable String mSetupWizardPackage;
@@ -2052,6 +2057,13 @@ public class PackageManagerService extends IPackageManager.Stub
                 VMRuntime.getRuntime().requestConcurrentGC();
             }
 
+            if(isStrictOpEnable()){
+                Intent intent = new Intent(Intent.ACTION_MANAGE_APP_PERMISSIONS);
+                intent.putExtra(Intent.EXTRA_PACKAGE_NAME, packageName);
+                intent.putExtra("hideInfoButton", true);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+            }
             // Notify DexManager that the package was installed for new users.
             // The updated users should already be indexed and the package code paths
             // should not change.
@@ -2077,6 +2089,10 @@ public class PackageManagerService extends IPackageManager.Stub
                 Slog.i(TAG, "Observer no longer exists.");
             }
         }
+    }
+
+    private boolean isStrictOpEnable() {
+        return SystemProperties.getBoolean("persist.vendor.strict_op_enable", false);
     }
 
     private void grantRuntimePermissionsGrantedToDisabledPrivSysPackageParentLPw(
@@ -2459,6 +2475,7 @@ public class PackageManagerService extends IPackageManager.Stub
             mAppLib32InstallDir = new File(dataDir, "app-lib");
             mAsecInternalPath = new File(dataDir, "app-asec").getPath();
             mDrmAppPrivateInstallDir = new File(dataDir, "app-private");
+            mRegionalizationAppInstallDir = new File(dataDir, "app-regional");
             sUserManager = new UserManagerService(context, this,
                     new UserDataPreparer(mInstaller, mInstallLock, mContext, mOnlyCore), mPackages);
 
@@ -2621,6 +2638,30 @@ public class PackageManagerService extends IPackageManager.Stub
                     | PackageParser.PARSE_IS_SYSTEM
                     | PackageParser.PARSE_IS_SYSTEM_DIR, scanFlags, 0);
 
+            // Collect all Regionalization packages form Carrier's res packages.
+            if (RegionalizationEnvironment.isSupported()) {
+                Log.d(TAG, "Load Regionalization vendor apks");
+                final List<File> RegionalizationDirs =
+                        RegionalizationEnvironment.getAllPackageDirectories();
+                for (File f : RegionalizationDirs) {
+                    File RegionalizationSystemDir = new File(f, "system");
+                    // Collect packages in <Package>/system/priv-app
+                    scanDirLI(new File(RegionalizationSystemDir, "priv-app"),
+                            PackageParser.PARSE_IS_SYSTEM | PackageParser.PARSE_IS_SYSTEM_DIR
+                            | PackageParser.PARSE_IS_PRIVILEGED, scanFlags, 0);
+                    // Collect packages in <Package>/system/app
+                    scanDirLI(new File(RegionalizationSystemDir, "app"),
+                            PackageParser.PARSE_IS_SYSTEM | PackageParser.PARSE_IS_SYSTEM_DIR,
+                            scanFlags, 0);
+                    // Collect overlay in <Package>/system/vendor
+                    scanDirLI(new File(RegionalizationSystemDir, "vendor/overlay"),
+                            PackageParser.PARSE_IS_SYSTEM
+                            | PackageParser.PARSE_IS_SYSTEM_DIR
+                            | PackageParser.PARSE_TRUSTED_OVERLAY,
+                            scanFlags | SCAN_TRUSTED_OVERLAY, 0);
+                }
+            }
+
             // Prune any system packages that no longer exist.
             final List<String> possiblyDeletedUpdatedSystemApps = new ArrayList<String>();
             if (!mOnlyCore) {
@@ -2702,6 +2743,17 @@ public class PackageManagerService extends IPackageManager.Stub
                 scanDirTracedLI(mDrmAppPrivateInstallDir, mDefParseFlags
                         | PackageParser.PARSE_FORWARD_LOCK,
                         scanFlags | SCAN_REQUIRE_KNOWN, 0);
+
+                // Collect all Regionalization 3rd packages.
+                if (RegionalizationEnvironment.isSupported()) {
+                    Log.d(TAG, "Load Regionalization 3rd apks from res packages.");
+                    final List<String> packages = RegionalizationEnvironment.getAllPackageNames();
+                    for (String pack : packages) {
+                        File appFolder = new File(mRegionalizationAppInstallDir, pack);
+                        Log.d(TAG, "Load Regionalization 3rd apks of path " + appFolder.getPath());
+                        scanDirLI(appFolder, 0, scanFlags | SCAN_REQUIRE_KNOWN, 0);
+                    }
+                }
 
                 /**
                  * Remove disable package settings for any updated system
@@ -2947,6 +2999,7 @@ public class PackageManagerService extends IPackageManager.Stub
 
             if (!mOnlyCore) {
                 mRequiredVerifierPackage = getRequiredButNotReallyRequiredVerifierLPr();
+                mOptionalVerifierPackage = getOptionalVerifierLPr();
                 mRequiredInstallerPackage = getRequiredInstallerLPr();
                 mRequiredUninstallerPackage = getRequiredUninstallerLPr();
                 mIntentFilterVerifierComponent = getIntentFilterVerifierComponentNameLPr();
@@ -2964,6 +3017,7 @@ public class PackageManagerService extends IPackageManager.Stub
                         SharedLibraryInfo.VERSION_UNDEFINED);
             } else {
                 mRequiredVerifierPackage = null;
+                mOptionalVerifierPackage = null;
                 mRequiredInstallerPackage = null;
                 mRequiredUninstallerPackage = null;
                 mIntentFilterVerifierComponent = null;
@@ -3123,11 +3177,38 @@ public class PackageManagerService extends IPackageManager.Stub
                 UserHandle.USER_SYSTEM);
         if (matches.size() == 1) {
             return matches.get(0).getComponentInfo().packageName;
+        } else if (matches.size() > 1) {
+                String optionalVerifierName = mContext.getResources().getString(R.string.config_optionalPackageVerifierName);
+                if (TextUtils.isEmpty(optionalVerifierName))
+                    return matches.get(0).getComponentInfo().packageName;
+            for (int i = 0; i < matches.size(); i++) {
+                if (!matches.get(i).getComponentInfo().packageName.contains(optionalVerifierName))
+                    return matches.get(i).getComponentInfo().packageName;
+            }
         } else if (matches.size() == 0) {
             Log.e(TAG, "There should probably be a verifier, but, none were found");
             return null;
         }
         throw new RuntimeException("There must be exactly one verifier; found " + matches);
+    }
+
+    private @Nullable String getOptionalVerifierLPr() {
+        final Intent intent = new Intent("com.qualcomm.qti.intent.action.PACKAGE_NEEDS_OPTIONAL_VERIFICATION");
+
+        final List<ResolveInfo> matches = queryIntentReceiversInternal(intent, PACKAGE_MIME_TYPE,
+                MATCH_SYSTEM_ONLY | MATCH_DIRECT_BOOT_AWARE | MATCH_DIRECT_BOOT_UNAWARE,
+                UserHandle.USER_SYSTEM);
+        if (matches.size() >= 1) {
+            String optionalVerifierName = mContext.getResources().getString(R.string.config_optionalPackageVerifierName);
+            if (TextUtils.isEmpty(optionalVerifierName))
+                return null;
+            for (int i = 0; i < matches.size(); i++) {
+                if (matches.get(i).getComponentInfo().packageName.contains(optionalVerifierName)) {
+                    return matches.get(i).getComponentInfo().packageName;
+                }
+            }
+        }
+        return null;
     }
 
     private @NonNull String getRequiredSharedLibraryLPr(String name, int version) {
@@ -3996,18 +4077,67 @@ public class PackageManagerService extends IPackageManager.Stub
     }
 
     @Override
-    public PermissionInfo getPermissionInfo(String name, int flags) {
-        if (getInstantAppPackageName(Binder.getCallingUid()) != null) {
+    public PermissionInfo getPermissionInfo(String name, String packageName, int flags) {
+        final int callingUid = Binder.getCallingUid();
+        if (getInstantAppPackageName(callingUid) != null) {
             return null;
         }
         // reader
         synchronized (mPackages) {
             final BasePermission p = mSettings.mPermissions.get(name);
-            if (p != null) {
-                return generatePermissionInfo(p, flags);
+            if (p == null) {
+                return null;
             }
-            return null;
+            // If the caller is an app that targets pre 26 SDK drop protection flags.
+            final PermissionInfo permissionInfo = generatePermissionInfo(p, flags);
+            if (permissionInfo != null) {
+                permissionInfo.protectionLevel = adjustPermissionProtectionFlagsLPr(
+                        permissionInfo.protectionLevel, packageName, callingUid);
+            }
+            return permissionInfo;
         }
+    }
+
+    private int adjustPermissionProtectionFlagsLPr(int protectionLevel,
+            String packageName, int uid) {
+        // Signature permission flags area always reported
+        final int protectionLevelMasked = protectionLevel
+                & (PermissionInfo.PROTECTION_NORMAL
+                | PermissionInfo.PROTECTION_DANGEROUS
+                | PermissionInfo.PROTECTION_SIGNATURE);
+        if (protectionLevelMasked == PermissionInfo.PROTECTION_SIGNATURE) {
+            return protectionLevel;
+        }
+
+        // System sees all flags.
+        final int appId = UserHandle.getAppId(uid);
+        if (appId == Process.SYSTEM_UID || appId == Process.ROOT_UID
+                || appId == Process.SHELL_UID) {
+            return protectionLevel;
+        }
+
+        // Normalize package name to handle renamed packages and static libs
+        packageName = resolveInternalPackageNameLPr(packageName,
+                PackageManager.VERSION_CODE_HIGHEST);
+
+        // Apps that target O see flags for all protection levels.
+        final PackageSetting ps = mSettings.mPackages.get(packageName);
+        if (ps == null) {
+            return protectionLevel;
+        }
+        if (ps.appId != appId) {
+            return protectionLevel;
+        }
+
+        final PackageParser.Package pkg = mPackages.get(packageName);
+        if (pkg == null) {
+            return protectionLevel;
+        }
+        if (pkg.applicationInfo.targetSdkVersion < Build.VERSION_CODES.O) {
+            return protectionLevelMasked;
+        }
+
+        return protectionLevel;
     }
 
     @Override
@@ -8609,6 +8739,12 @@ public class PackageManagerService extends IPackageManager.Stub
                 // Ignore entries which are not packages
                 continue;
             }
+           if (RegionalizationEnvironment.isSupported()) {
+             if (RegionalizationEnvironment.isExcludedApp(file.getName())) {
+               Log.d(TAG, "Regionalization Excluded:" + file.getName());
+               continue;
+            }
+           }
             parallelPackageParser.submit(file, parseFlags);
             fileCount++;
         }
@@ -14075,6 +14211,7 @@ public class PackageManagerService extends IPackageManager.Stub
     @Override
     public void installPackageAsUser(String originPath, IPackageInstallObserver2 observer,
             int installFlags, String installerPackageName, int userId) {
+        android.util.SeempLog.record(90);
         mContext.enforceCallingOrSelfPermission(android.Manifest.permission.INSTALL_PACKAGES, null);
 
         final int callingUid = Binder.getCallingUid();
@@ -15777,9 +15914,14 @@ public class PackageManagerService extends IPackageManager.Stub
                 final int requiredUid = mRequiredVerifierPackage == null ? -1
                         : getPackageUid(mRequiredVerifierPackage, MATCH_DEBUG_TRIAGED_MISSING,
                                 verifierUser.getIdentifier());
+
+                final int optionalUid = mOptionalVerifierPackage == null ? -1
+                        : getPackageUid(mOptionalVerifierPackage, MATCH_DEBUG_TRIAGED_MISSING,
+                                verifierUser.getIdentifier());
+
                 final int installerUid =
                         verificationInfo == null ? -1 : verificationInfo.installerUid;
-                if (!origin.existing && requiredUid != -1
+                if (!origin.existing && (requiredUid != -1 || optionalUid != -1)
                         && isVerificationEnabled(
                                 verifierUser.getIdentifier(), installFlags, installerUid)) {
                     final Intent verification = new Intent(
@@ -15865,6 +16007,31 @@ public class PackageManagerService extends IPackageManager.Stub
                                 sufficientIntent.setComponent(verifierComponent);
                                 mContext.sendBroadcastAsUser(sufficientIntent, verifierUser);
                             }
+                        }
+                    }
+
+                    if (mOptionalVerifierPackage != null) {
+                        final Intent optionalIntent = new Intent(verification);
+                        optionalIntent.setAction("com.qualcomm.qti.intent.action.PACKAGE_NEEDS_OPTIONAL_VERIFICATION");
+                        final List<ResolveInfo> optional_receivers = queryIntentReceiversInternal(optionalIntent,
+                            PACKAGE_MIME_TYPE, 0, verifierUser.getIdentifier());
+                        final ComponentName optionalVerifierComponent = matchComponentForVerifier(
+                            mOptionalVerifierPackage, optional_receivers);
+                        optionalIntent.setComponent(optionalVerifierComponent);
+                        verificationState.addOptionalVerifier(optionalUid);
+                        if (mRequiredVerifierPackage != null) {
+                            mContext.sendBroadcastAsUser(optionalIntent, verifierUser, android.Manifest.permission.PACKAGE_VERIFICATION_AGENT);
+                        } else {
+                            mContext.sendOrderedBroadcastAsUser(optionalIntent, verifierUser, android.Manifest.permission.PACKAGE_VERIFICATION_AGENT,
+                            new BroadcastReceiver() {
+                                @Override
+                                public void onReceive(Context context, Intent intent) {
+                                    final Message msg = mHandler.obtainMessage(CHECK_PENDING_VERIFICATION);
+                                    msg.arg1 = verificationId;
+                                    mHandler.sendMessageDelayed(msg, getVerificationTimeout());
+                                }
+                            }, null, 0, null, null);
+                            mArgs = null;
                         }
                     }
 

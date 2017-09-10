@@ -219,6 +219,7 @@
   <java-symbol type="id" name="insertion_handle" />
   <java-symbol type="id" name="accessibilityActionClickOnClickableSpan" />
 
+  <java-symbol type="id" name="permission_text" />
   <java-symbol type="attr" name="actionModeShareDrawable" />
   <java-symbol type="attr" name="alertDialogCenterButtons" />
   <java-symbol type="attr" name="fragmentBreadCrumbsStyle" />
@@ -238,6 +239,9 @@
   <java-symbol type="attr" name="windowFixedHeightMinor" />
   <java-symbol type="attr" name="accessibilityFocusedDrawable"/>
   <java-symbol type="attr" name="isLightTheme"/>
+  <java-symbol type="string" name="tethered_notification_no_device_message" />
+  <java-symbol type="string" name="tethered_notification_one_device_message" />
+  <java-symbol type="string" name="tethered_notification_multi_device_message" />
   <java-symbol type="attr" name="autofilledHighlight"/>
   <java-symbol type="attr" name="autofillDatasetPickerMaxWidth"/>
   <java-symbol type="attr" name="autofillDatasetPickerMaxHeight"/>
@@ -309,6 +313,7 @@
   <java-symbol type="bool" name="config_wifi_enable_disconnection_debounce" />
   <java-symbol type="bool" name="config_wifi_revert_country_code_on_cellular_loss" />
   <java-symbol type="bool" name="config_wifi_enable_wifi_firmware_debugging" />
+  <java-symbol type="bool" name="config_softap_extension" />
   <java-symbol type="integer" name="config_wifi_logger_ring_buffer_default_size_limit_kb" />
   <java-symbol type="integer" name="config_wifi_logger_ring_buffer_verbose_size_limit_kb" />
   <java-symbol type="bool" name="config_wifi_turn_off_during_emergency_call" />
@@ -1165,6 +1170,8 @@
   <java-symbol type="string" name="conference_call" />
   <java-symbol type="string" name="tooltip_popup_title" />
 
+  <java-symbol type="string" name="allow_button" />
+  <java-symbol type="string" name="deny_button" />
   <java-symbol type="plurals" name="bugreport_countdown" />
   <java-symbol type="plurals" name="last_num_days" />
   <java-symbol type="plurals" name="matches_found" />
@@ -1194,7 +1201,7 @@
   <java-symbol type="array" name="config_telephonyHardware" />
   <java-symbol type="array" name="config_keySystemUuidMapping" />
   <java-symbol type="array" name="config_gpsParameters" />
-
+  <java-symbol type="drawable" name="stat_sys_tether_wifi" />
   <java-symbol type="drawable" name="default_wallpaper" />
   <java-symbol type="drawable" name="default_lock_wallpaper" />
   <java-symbol type="drawable" name="indicator_input_error" />
@@ -1456,6 +1463,7 @@
   <java-symbol type="layout" name="user_switching_dialog" />
   <java-symbol type="layout" name="common_tab_settings" />
 
+  <java-symbol type="layout" name="permission_confirmation_dialog" />
   <java-symbol type="anim" name="slide_in_child_bottom" />
   <java-symbol type="anim" name="slide_in_right" />
   <java-symbol type="anim" name="slide_out_left" />
@@ -1554,6 +1562,7 @@
   <java-symbol type="attr" name="dialogCustomTitleDecorLayout" />
   <java-symbol type="attr" name="dialogTitleDecorLayout" />
   <java-symbol type="attr" name="dialogTitleIconsDecorLayout" />
+  <java-symbol type="array" name="app_ops_labels" />
   <java-symbol type="bool" name="config_allowAllRotations" />
   <java-symbol type="bool" name="config_annoy_dianne" />
   <java-symbol type="bool" name="config_carDockEnablesAccelerometer" />
@@ -1738,6 +1747,8 @@
   <java-symbol type="array" name="config_testLocationProviders" />
   <java-symbol type="array" name="config_defaultNotificationVibePattern" />
   <java-symbol type="array" name="config_notificationFallbackVibePattern" />
+  <java-symbol type="array" name="config_wifi_dual_sap_interfaces" />
+  <java-symbol type="bool" name="config_wifi_dual_sap_mode_enabled" />
   <java-symbol type="bool" name="config_useAttentionLight" />
   <java-symbol type="bool" name="config_animateScreenLights" />
   <java-symbol type="bool" name="config_automatic_brightness_available" />
@@ -1894,6 +1905,7 @@
   <java-symbol type="string" name="config_geocoderProviderPackageName" />
   <java-symbol type="string" name="config_geofenceProviderPackageName" />
   <java-symbol type="string" name="config_networkLocationProviderPackageName" />
+  <java-symbol type="string" name="config_comboNetworkLocationProvider" />
   <java-symbol type="string" name="config_wimaxManagerClassname" />
   <java-symbol type="string" name="config_wimaxNativeLibLocation" />
   <java-symbol type="string" name="config_wimaxServiceClassname" />
@@ -2002,6 +2014,7 @@
   <java-symbol type="string" name="demo_user_inactivity_timeout_countdown" />
   <java-symbol type="string" name="demo_user_inactivity_timeout_left_button" />
   <java-symbol type="string" name="demo_user_inactivity_timeout_right_button" />
+  <java-symbol type="string" name="config_optionalPackageVerifierName" />
 
   <java-symbol type="layout" name="resolver_list" />
   <java-symbol type="id" name="resolver_list" />
@@ -3016,6 +3029,9 @@
 
   <java-symbol type="array" name="config_hideWhenDisabled_packageNames" />
 
+  <java-symbol type="integer" name="config_sms_authorization_timeout_ms" />
+  <java-symbol type="bool" name="config_sms_authorization_enabled" />
+
   <java-symbol type="array" name="config_allowedGlobalInstantAppSettings" />
   <java-symbol type="array" name="config_allowedSystemInstantAppSettings" />
   <java-symbol type="array" name="config_allowedSecureInstantAppSettings" />
@@ -3024,6 +3040,9 @@
 
   <java-symbol type="integer" name="config_inCallNotificationVolumeRelative" />
   <java-symbol type="drawable" name="stat_sys_vitals" />
+
+  <!-- SIM contact batch operation -->
+  <java-symbol type="bool" name="config_sim_phonebook_batch_operation" />
 
   <java-symbol type="array" name="config_batteryPackageTypeSystem" />
   <java-symbol type="array" name="config_batteryPackageTypeService" />
