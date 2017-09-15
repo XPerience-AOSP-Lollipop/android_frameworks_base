@@ -32,6 +32,4 @@
     <string name="reboot_system_title">Reboot system</string>
     <string name="reboot_system_message">Rebooting\u2026</string>
 
-    <!-- volte icon switch -->
-    <string name="status_bar_volte">VoLTE</string>
 </resources>
