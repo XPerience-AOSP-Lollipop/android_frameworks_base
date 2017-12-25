@@ -34,4 +34,10 @@
     <string name="accessibility_quick_settings_heads_up_changed_off">Heads up oprit.</string>
     <string name="accessibility_quick_settings_heads_up_changed_on">Heads up pornit.</string>
 
+      <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time">Încărcare rapidă: (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> pînă la finalizare)</string>
+    <string name="keyguard_plugged_in_dash_charging">Încărcare rapidă</string>
+
+    <string name="global_action_restart_advanced">Repornire avansată</string>
+    <string name="statusbar_items_title">Pictogramă bară de stare</string>
 </resources>
