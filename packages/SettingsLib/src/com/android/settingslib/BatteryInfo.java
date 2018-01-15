@@ -38,6 +38,7 @@ public class BatteryInfo {
     public long remainingTimeUs = 0;
     public String batteryPercentString;
     public String remainingLabel;
+	public String remainingLabelInfo;
     private BatteryStats mStats;
     private boolean mCharging;
     private long timePeriod;
@@ -145,12 +146,14 @@ public class BatteryInfo {
                         shortString ? R.string.power_remaining_duration_only_short
                                 : R.string.power_remaining_duration_only,
                         timeString);
+				info.remainingLabelInfo = resources.getString(R.string.power_charging_duration_info);
                 info.mChargeLabelString = resources.getString(
                         shortString ? R.string.power_discharging_duration_short
                                 : R.string.power_discharging_duration,
                         info.batteryPercentString, timeString);
             } else {
                 info.remainingLabel = null;
+				info.remainingLabelInfo = null;
                 info.mChargeLabelString = info.batteryPercentString;
             }
         } else {
@@ -181,10 +184,12 @@ public class BatteryInfo {
                 }
                 info.remainingLabel = resources.getString(R.string.power_remaining_duration_only,
                         timeString);
+				info.remainingLabelInfo = resources.getString(R.string.power_remaining_duration_info);
                 info.mChargeLabelString = resources.getString(
                         resId, info.batteryPercentString, timeString);
             } else {
                 info.remainingLabel = statusLabel;
+				info.remainingLabel = null;
                 info.mChargeLabelString = resources.getString(
                         R.string.power_charging, info.batteryPercentString, statusLabel);
             }
