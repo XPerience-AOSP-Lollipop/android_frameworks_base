@@ -103,4 +103,11 @@ C42.897,4,44,5.103,44,6.464v49.072C44,56.897,42.897,58,41.536,58z M 24 0 H 34 V 
     <!-- volte icon switch -->
     <string name="status_bar_volte">VoLTE</string>
 
+	<!--Motomods-->
+	<string name="moto_mods">Moto Mods™</string>
+	<string name="mod_remaining_label">battery remaining</string>
+	<string name="settings_battery_mode_title">Change Battery mode</string>
+    <string name="power_charging_ac">Charging on AC</string>
+    <string name="power_charging_usb">Charging on USB</string>
+    <string name="power_charging_wireless">Charging from wireless</string>
 </resources>
