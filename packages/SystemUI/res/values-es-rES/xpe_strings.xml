@@ -21,9 +21,30 @@
   <!-- Content description of the data connection type HSPA+ for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
   <!-- Content description of the data connection type HSPA+ for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
   <!-- Caffeine QS tile -->
+  <string name="quick_settings_caffeine_label">Cafeína</string>
+  <string name="accessibility_quick_settings_caffeine_off">Cafeína desactivada.</string>
+  <string name="accessibility_quick_settings_caffeine_on">Cafeína activada.</string>
   <!-- Ambient display QS tile -->
+  <string name="quick_settings_ambient_display_label">Pantalla ambiente</string>
+  <string name="accessibility_quick_settings_ambient_display_off">Pantalla ambiente desactivada.</string>
+  <string name="accessibility_quick_settings_ambient_display_on">Pantalla ambiente activada.</string>
+  <string name="accessibility_quick_settings_ambient_display_changed_off">Pantalla ambiente se ha desactivado.</string>
+  <string name="accessibility_quick_settings_ambient_display_changed_on">Pantalla ambiente se ha activado.</string>
   <!-- Heads up QS tile -->
+  <string name="quick_settings_heads_up_label">Notificaciones emergentes</string>
+  <string name="accessibility_quick_settings_heads_up_off">Notificaciones emergentes desactivadas.</string>
+  <string name="accessibility_quick_settings_heads_up_on">Notificaciones emergentes activadas.</string>
+  <string name="accessibility_quick_settings_heads_up_changed_off">Notificaciones emergentes desactivadas.</string>
+  <string name="accessibility_quick_settings_heads_up_changed_on">Notificaciones emergentes activadas.</string>
   <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+  <string name="keyguard_indication_dash_charging_time">Carga Rápida Dash (<xliff:g id="tiempo_de_carga_restante" ejemplo="4 horas y 2 minutos">%s</xliff:g> hasta completar)</string>
+  <string name="keyguard_plugged_in_dash_charging">Carga Rápida Dash</string>
+  <string name="statusbar_items_title">Icono de barra de estado</string>
   <!-- Global actions -->
+  <string name="global_action_restart_system">Reiniciar</string>
+  <string name="global_action_restart_advanced">Avanzado</string>
+  <string name="global_action_restart_hot">Reinicio rápido</string>
+  <string name="global_action_screenshot">Captura de Pantalla</string>
   <!-- Screen pinning dialog description (for devices without navbar) -->
+  <string name="screen_pinning_description_no_navbar">Esto fija la pantalla en esta vista hasta que es liberada. Pulsa y Mantén presionado el botón Atrás para liberarla.</string>
 </resources>
