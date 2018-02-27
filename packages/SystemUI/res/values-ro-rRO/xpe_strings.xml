@@ -24,4 +24,6 @@
   <!-- Ambient display QS tile -->
   <!-- Heads up QS tile -->
   <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+  <!-- Global actions -->
+  <!-- Screen pinning dialog description (for devices without navbar) -->
 </resources>
