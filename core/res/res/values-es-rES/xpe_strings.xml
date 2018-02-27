@@ -20,5 +20,12 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="reboot_to_recovery_title">Recovery</string>
+  <string name="reboot_to_recovery_message">Reiniciando en modo recovery</string>
+  <string name="reboot_to_bootloader_title">Bootloader</string>
+  <string name="reboot_to_bootloader_message">Reiniciando en modo bootloader</string>
+  <string name="reboot_title">Reiniciar</string>
+  <string name="reboot_message">Reiniciando el sistema</string>
   <!-- Notify user that they are in Lock-to-app (for devices without navbar) -->
+  <string name="lock_to_app_toast_no_navbar">Para anular la fijación, mantenga presionado el botón de atrás.</string>
 </resources>
