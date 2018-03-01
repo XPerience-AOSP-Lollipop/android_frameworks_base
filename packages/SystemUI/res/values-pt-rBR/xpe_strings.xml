@@ -21,9 +21,30 @@
   <!-- Content description of the data connection type HSPA+ for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
   <!-- Content description of the data connection type HSPA+ for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
   <!-- Caffeine QS tile -->
+  <string name="quick_settings_caffeine_label">Modo cafeína</string>
+  <string name="accessibility_quick_settings_caffeine_off">Modo cafeína desativado.</string>
+  <string name="accessibility_quick_settings_caffeine_on">Modo cafeína ativado.</string>
   <!-- Ambient display QS tile -->
+  <string name="quick_settings_ambient_display_label">Tela ambiente</string>
+  <string name="accessibility_quick_settings_ambient_display_off">Tela ambiente desativada.</string>
+  <string name="accessibility_quick_settings_ambient_display_on">Tela ambiente ativada.</string>
+  <string name="accessibility_quick_settings_ambient_display_changed_off">Tela ambiente foi desativada.</string>
+  <string name="accessibility_quick_settings_ambient_display_changed_on">Tela ambiente foi ativada.</string>
   <!-- Heads up QS tile -->
+  <string name="quick_settings_heads_up_label">Notificações pop-up</string>
+  <string name="accessibility_quick_settings_heads_up_off">Notificações pop-up desativadas.</string>
+  <string name="accessibility_quick_settings_heads_up_on">Notificações pop-up ativadas.</string>
+  <string name="accessibility_quick_settings_heads_up_changed_off">Notificações pop-up foram desativadas.</string>
+  <string name="accessibility_quick_settings_heads_up_changed_on">Notificações pop-up foram ativadas.</string>
   <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+  <string name="keyguard_indication_dash_charging_time">Carregamento rápido(<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
+  <string name="keyguard_plugged_in_dash_charging">Carregamento rápido</string>
+  <string name="statusbar_items_title">Ícones da barra de status</string>
   <!-- Global actions -->
+  <string name="global_action_restart_system">Reiniciar</string>
+  <string name="global_action_restart_advanced">Avançado</string>
+  <string name="global_action_restart_hot">Reinício rápido</string>
+  <string name="global_action_screenshot">Captura de tela</string>
   <!-- Screen pinning dialog description (for devices without navbar) -->
+  <string name="screen_pinning_description_no_navbar">Ela é mantida à vista até que seja liberada. Mantenha o botão Voltar pressionado para liberar.</string>
 </resources>
