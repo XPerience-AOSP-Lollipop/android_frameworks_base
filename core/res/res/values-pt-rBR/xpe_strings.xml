@@ -20,5 +20,12 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="reboot_to_recovery_title">Recuperação</string>
+  <string name="reboot_to_recovery_message">Reiniciar para recuperação</string>
+  <string name="reboot_to_bootloader_title">Bootloader</string>
+  <string name="reboot_to_bootloader_message">Reiniciar para bootloader</string>
+  <string name="reboot_title">Reiniciar</string>
+  <string name="reboot_message">Reiniciar sistema</string>
   <!-- Notify user that they are in Lock-to-app (for devices without navbar) -->
+  <string name="lock_to_app_toast_no_navbar">Para liberar esta tela, mantenha o botão Voltar pressionado.</string>
 </resources>
