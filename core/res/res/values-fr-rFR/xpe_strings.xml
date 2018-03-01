@@ -20,5 +20,12 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="reboot_to_recovery_title">Recovery</string>
+  <string name="reboot_to_recovery_message">Redémarrer dans le Recovery</string>
+  <string name="reboot_to_bootloader_title">Bootloader</string>
+  <string name="reboot_to_bootloader_message">Redémarrage dans le bootloader</string>
+  <string name="reboot_title">Redémarrer</string>
+  <string name="reboot_message">Redémarrage du système</string>
   <!-- Notify user that they are in Lock-to-app (for devices without navbar) -->
+  <string name="lock_to_app_toast_no_navbar">Pour déverrouiller l\'écran, appuyez et maintenez le bouton Retour.</string>
 </resources>
