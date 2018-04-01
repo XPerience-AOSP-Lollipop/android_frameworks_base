@@ -20,5 +20,13 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="reboot_to_recovery_title">Меню восстановления</string>
+  <string name="reboot_to_recovery_message">Перезагрузка в меню восстановления</string>
+  <string name="reboot_to_bootloader_title">Загрузчик</string>
+  <string name="reboot_to_bootloader_message">Перезагрузка в загрузчик</string>
+  <string name="reboot_title">Перезагрузка</string>
+  <string name="reboot_message">Перезагрузка системы</string>
   <!-- Notify user that they are in Lock-to-app (for devices without navbar) -->
+  <string name="lock_to_app_toast_no_navbar">Чтобы открепить экран, нажмите и удерживайте кнопку «Назад».</string>
+  <!-- Pocket Lock -->
 </resources>
