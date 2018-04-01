@@ -28,4 +28,5 @@
   <string name="reboot_message">Redémarrage du système</string>
   <!-- Notify user that they are in Lock-to-app (for devices without navbar) -->
   <string name="lock_to_app_toast_no_navbar">Pour déverrouiller l\'écran, appuyez et maintenez le bouton Retour.</string>
+  <!-- Pocket Lock -->
 </resources>
