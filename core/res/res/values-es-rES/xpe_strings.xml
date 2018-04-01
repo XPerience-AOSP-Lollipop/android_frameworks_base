@@ -28,4 +28,6 @@
   <string name="reboot_message">Reiniciando el sistema</string>
   <!-- Notify user that they are in Lock-to-app (for devices without navbar) -->
   <string name="lock_to_app_toast_no_navbar">Para anular la fijación, mantenga presionado el botón de atrás.</string>
+  <!-- Pocket Lock -->
+  <string name="pocket_lock_message_long_press">Mantén presionado el botón de encendido para interactuar</string>
 </resources>
