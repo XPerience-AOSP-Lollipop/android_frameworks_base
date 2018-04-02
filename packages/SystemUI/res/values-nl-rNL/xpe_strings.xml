@@ -21,9 +21,23 @@
   <!-- Content description of the data connection type HSPA+ for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
   <!-- Content description of the data connection type HSPA+ for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
   <!-- Caffeine QS tile -->
+  <string name="quick_settings_caffeine_label">Cafeïne</string>
+  <string name="accessibility_quick_settings_caffeine_off">Cafeïne uit.</string>
+  <string name="accessibility_quick_settings_caffeine_on">Cafeïne aan.</string>
   <!-- Ambient display QS tile -->
+  <string name="quick_settings_ambient_display_label">Actieve display</string>
+  <string name="accessibility_quick_settings_ambient_display_off">Actieve display uit.</string>
+  <string name="accessibility_quick_settings_ambient_display_on">Actieve display uit.</string>
+  <string name="accessibility_quick_settings_ambient_display_changed_off">Ambient Display is uitgeschakeld.</string>
+  <string name="accessibility_quick_settings_ambient_display_changed_on">Ambient Display is uitgeschakeld.</string>
   <!-- Heads up QS tile -->
   <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+  <string name="statusbar_items_title">Statusbalk icoon</string>
   <!-- Global actions -->
+  <string name="global_action_restart_system">Opnieuw opstarten</string>
+  <string name="global_action_restart_advanced">Geavanceerd</string>
+  <string name="global_action_restart_hot">Snelle herstart</string>
+  <string name="global_action_screenshot">Schermafdruk</string>
   <!-- Screen pinning dialog description (for devices without navbar) -->
+  <string name="screen_pinning_description_no_navbar">Het scherm blijft zichtbaar totdat je het losmaakt. Tik op &amp; en houd vast om het scherm los te maken.</string>
 </resources>
