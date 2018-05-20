@@ -40,4 +40,8 @@
   <string name="global_action_screenshot">Schermafdruk</string>
   <!-- Screen pinning dialog description (for devices without navbar) -->
   <string name="screen_pinning_description_no_navbar">Het scherm blijft zichtbaar totdat je het losmaakt. Tik op &amp; en houd vast om het scherm los te maken.</string>
+  <!--Free Mem Bar-->
+  <!-- SysUI Tuner: Button that controls inversion of layout of navigation bar [CHAR LIMIT=60] -->
+  <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
+  <!-- High Brightness Mode Tile -->
 </resources>
