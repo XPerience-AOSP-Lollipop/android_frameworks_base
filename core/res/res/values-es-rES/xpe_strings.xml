@@ -30,4 +30,10 @@
   <string name="lock_to_app_toast_no_navbar">Para anular la fijación, mantenga presionado el botón de atrás.</string>
   <!-- Pocket Lock -->
   <string name="pocket_lock_message_long_press">Mantén presionado el botón de encendido para interactuar</string>
+  <!-- Assist manager -->
+  <string name="no_assist_found">No se ha encontrado asistente</string>
+  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+  <string name="permlab_preventpower">Reajustar tecla de encendido</string>
+  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+  <string name="permdesc_preventpower">Permite que una aplicación cambie la función de la tecla de encendido.</string>
 </resources>
