@@ -47,4 +47,14 @@
   <string name="global_action_screenshot">Captura de Pantalla</string>
   <!-- Screen pinning dialog description (for devices without navbar) -->
   <string name="screen_pinning_description_no_navbar">Esto fija la pantalla en esta vista hasta que es liberada. Pulsa y Mantén presionado el botón Atrás para liberarla.</string>
+  <!--Free Mem Bar-->
+  <string name="recents_free_ram"> Memoria RAM libre: %1$d MB </string>
+  <!-- SysUI Tuner: Button that controls inversion of layout of navigation bar [CHAR LIMIT=60] -->
+  <string name="nav_bar_layout_inverse">Invertir disposición de botón</string>
+  <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
+  <string name="keyguard_indication_turbo_power_time">TurboPower conectado (<xliff:g id="charging_time_left">%s</xliff:g> hasta completar)</string>
+  <string name="keyguard_plugged_in_turbo_power_charging">TurboPower conectado</string>
+  <string name="keyguard_plugged_in_turbo_charging">Carga Turbo</string>
+  <!-- High Brightness Mode Tile -->
+  <string name="quick_settings_high_brightness">Modo brillo alto</string>
 </resources>
