@@ -32,4 +32,5 @@
   <!-- Assist manager -->
   <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
   <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+  <!-- Text when wrong password entered for psk networks -->
 </resources>
