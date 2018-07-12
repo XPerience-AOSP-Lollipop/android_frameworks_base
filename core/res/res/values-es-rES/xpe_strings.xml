@@ -36,4 +36,6 @@
   <string name="permlab_preventpower">Reajustar tecla de encendido</string>
   <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
   <string name="permdesc_preventpower">Permite que una aplicación cambie la función de la tecla de encendido.</string>
+  <!-- Text when wrong password entered for psk networks -->
+  <string name="wifi_auth_password_wrong">La contraseña introducida puede ser incorrecta</string>
 </resources>
