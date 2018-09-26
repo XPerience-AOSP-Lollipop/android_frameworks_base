@@ -29,8 +29,13 @@
   <!-- Notify user that they are in Lock-to-app (for devices without navbar) -->
   <string name="lock_to_app_toast_no_navbar">Чтобы открепить экран, нажмите и удерживайте кнопку «Назад».</string>
   <!-- Pocket Lock -->
+  <string name="pocket_lock_message_long_press">Удерживайте кнопку питания для взаимодействия</string>
   <!-- Assist manager -->
+  <string name="no_assist_found">Вспомогательный менеджер не найден</string>
   <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+  <string name="permlab_preventpower">изменить действие кнопки питания</string>
   <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+  <string name="permdesc_preventpower">Разрешает приложению изменять действие кнопки питания.</string>
   <!-- Text when wrong password entered for psk networks -->
+  <string name="wifi_auth_password_wrong">Возможно, пароль неверен</string>
 </resources>
