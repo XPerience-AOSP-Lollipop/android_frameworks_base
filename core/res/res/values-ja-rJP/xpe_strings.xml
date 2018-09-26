@@ -20,10 +20,22 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="reboot_to_recovery_title">リカバリー</string>
+  <string name="reboot_to_recovery_message">リカバリーへ再起動中...</string>
+  <string name="reboot_to_bootloader_title">ブートローダー</string>
+  <string name="reboot_to_bootloader_message">ブートローダーへ再起動...</string>
+  <string name="reboot_title">再起動</string>
+  <string name="reboot_message">システムを再起動中...</string>
   <!-- Notify user that they are in Lock-to-app (for devices without navbar) -->
+  <string name="lock_to_app_toast_no_navbar">画面の固定を解除するには戻るボタンを長押しします</string>
   <!-- Pocket Lock -->
+  <string name="pocket_lock_message_long_press">電源ボタンを長押しで操作</string>
   <!-- Assist manager -->
+  <string name="no_assist_found">アシストマネージャーは見つかりませんでした</string>
   <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+  <string name="permlab_preventpower">電源ボタンの置き換え</string>
   <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+  <string name="permdesc_preventpower">アプリが電源ボタンの機能を置き換えることを許可する</string>
   <!-- Text when wrong password entered for psk networks -->
+  <string name="wifi_auth_password_wrong">パスワードが正しくない可能性があります</string>
 </resources>
