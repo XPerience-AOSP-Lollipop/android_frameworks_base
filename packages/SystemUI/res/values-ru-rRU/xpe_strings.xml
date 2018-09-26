@@ -48,7 +48,13 @@
   <!-- Screen pinning dialog description (for devices without navbar) -->
   <string name="screen_pinning_description_no_navbar">Приложение останется активным, пока вы не отмените блокировку долгим нажатием кнопки «Назад».</string>
   <!--Free Mem Bar-->
+  <string name="recents_free_ram"> Свободно ОЗУ: %1$d Мб </string>
   <!-- SysUI Tuner: Button that controls inversion of layout of navigation bar [CHAR LIMIT=60] -->
+  <string name="nav_bar_layout_inverse">Инвертировать расположение кнопок</string>
   <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
+  <string name="keyguard_indication_turbo_power_time">Быстрая зарядка активна (<xliff:g id="charging_time_left">%s</xliff:g> до полной зарядки)</string>
+  <string name="keyguard_plugged_in_turbo_power_charging">Быстрая зарядка подключена</string>
+  <string name="keyguard_plugged_in_turbo_charging">Быстрая зарядка</string>
   <!-- High Brightness Mode Tile -->
+  <string name="quick_settings_high_brightness">Высокая яркость</string>
 </resources>
