@@ -21,13 +21,40 @@
   <!-- Content description of the data connection type HSPA+ for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
   <!-- Content description of the data connection type HSPA+ for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
   <!-- Caffeine QS tile -->
+  <string name="quick_settings_caffeine_label">カフェイン</string>
+  <string name="accessibility_quick_settings_caffeine_off">カフェイン オフ</string>
+  <string name="accessibility_quick_settings_caffeine_on">カフェイン オン</string>
   <!-- Ambient display QS tile -->
+  <string name="quick_settings_ambient_display_label">アンビエント表示</string>
+  <string name="accessibility_quick_settings_ambient_display_off">アンビエント表示 オフ</string>
+  <string name="accessibility_quick_settings_ambient_display_on">アンビエント表示 オン</string>
+  <string name="accessibility_quick_settings_ambient_display_changed_off">アンビエント表示をオフにしました</string>
+  <string name="accessibility_quick_settings_ambient_display_changed_on">アンビエント表示をオンにしました</string>
   <!-- Heads up QS tile -->
+  <string name="quick_settings_heads_up_label">Heads Up</string>
+  <string name="accessibility_quick_settings_heads_up_off">Heads Up オフ</string>
+  <string name="accessibility_quick_settings_heads_up_on">Heads Up オン</string>
+  <string name="accessibility_quick_settings_heads_up_changed_off">Heads Upをオフにしました</string>
+  <string name="accessibility_quick_settings_heads_up_changed_on">Heads Upをオンにしました</string>
   <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+  <string name="keyguard_indication_dash_charging_time">急速充電中（充電完了まで<xliff:g id="Charging_TIME_LEFT">%s</xliff:g>）</string>
+  <string name="keyguard_plugged_in_dash_charging">急速充電中</string>
+  <string name="statusbar_items_title">ステータスバーアイコン</string>
   <!-- Global actions -->
+  <string name="global_action_restart_system">再起動</string>
+  <string name="global_action_restart_advanced">高度な再起動</string>
+  <string name="global_action_restart_hot">クイックリブート</string>
+  <string name="global_action_screenshot">スクリーンショット</string>
   <!-- Screen pinning dialog description (for devices without navbar) -->
+  <string name="screen_pinning_description_no_navbar">固定を解除するまで画面が常に表示されるようになります。固定を解除するには戻るボタンを押し続けます。</string>
   <!--Free Mem Bar-->
+  <string name="recents_free_ram">空きメモリ：%1$d MB</string>
   <!-- SysUI Tuner: Button that controls inversion of layout of navigation bar [CHAR LIMIT=60] -->
+  <string name="nav_bar_layout_inverse">ボタンのレイアウトを反転</string>
   <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
+  <string name="keyguard_indication_turbo_power_time">急速充電中（充電完了まで<xliff:g id="charging_time_left">%s</xliff:g>）</string>
+  <string name="keyguard_plugged_in_turbo_power_charging">急速充電中</string>
+  <string name="keyguard_plugged_in_turbo_charging">急速充電中</string>
   <!-- High Brightness Mode Tile -->
+  <string name="quick_settings_high_brightness">高輝度</string>
 </resources>
