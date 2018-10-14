@@ -31,6 +31,14 @@
   <!-- Titles for logd limit size lowram selection preference. [CHAR LIMIT=14] -->
   <!-- Values for logd limit size selection preference. -->
   <!-- Summaries for logd limit size selection preference. [CHAR LIMIT=50]-->
+  <string-array name="select_logd_size_summaries">
+    <item>I ffwrdd</item>
+    <item>byffer 64K i bob log</item>
+    <item>byffer 256K i bob log</item>
+    <item>byffer 1M i bob log</item>
+    <item>byffer 4M i bob log</item>
+    <item>byffer 16M i bob log</item>
+  </string-array>
   <!-- Values for logpersist state selection preference. -->
   <!-- Titles for logpersist state selection preference. [CHAR LIMIT=14] -->
   <!-- Summaries for logpersist state selection preference. [CHAR LIMIT=50]-->
