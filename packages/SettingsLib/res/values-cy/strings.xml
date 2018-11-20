@@ -36,10 +36,7 @@
   <!-- Do not translate.  Concise terminology for wifi with 802.1x EAP security -->
   <!-- Do not translate.  Concise terminology for Passpoint network -->
   <!-- Summary for the remembered network. -->
-<<<<<<< HEAD
-=======
   <string name="wifi_remembered">Wedi ei gofio</string>
->>>>>>> 22565eb... Automatic translation import
   <!-- Status for networks disabled for unknown reason -->
   <!-- Status for networked disabled from a DNS or DHCP failure -->
   <!-- Status for networked disabled from a wifi association failure -->
@@ -328,10 +325,7 @@
   <!-- Toast message shown when the user successfully sets a new local backup password [CHAR LIMIT=80] -->
   <!-- Toast message shown when setting a new local backup password fails due to the user not correctly typing the password again for confirmation [CHAR LIMIT=80] -->
   <!-- Toast message shown when setting a new local backup password fails due to the user not supplying the correct existing password. The phrasing here is deliberately quite general. [CHAR LIMIT=80] -->
-<<<<<<< HEAD
-=======
   <string name="local_backup_password_toast_validation_failure">Methwyd â gosod y cyfrinair wrth gefn</string>
->>>>>>> 22565eb... Automatic translation import
   <!-- Name of each color mode for the display. [CHAR LIMIT=40] -->
   <!-- Description of each color mode for the display. [CHAR LIMIT=NONE] -->
   <!-- Settings item title for inactive apps [CHAR LIMIT=35] -->
@@ -383,32 +377,20 @@
   <!-- [CHAR_LIMIT=40] Label for battery level chart when discharging with duration -->
   <!-- [CHAR_LIMIT=40] Label for battery level chart when charging -->
   <!-- [CHAR_LIMIT=40] Label for battery level chart when charging with duration -->
-<<<<<<< HEAD
-=======
   <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> - Llawn ymhen
 <xliff:g id="time">%2$s</xliff:g></string>
->>>>>>> 22565eb... Automatic translation import
   <!-- [CHAR_LIMIT=40] Short label for battery level chart when charging with duration -->
   <!-- [CHAR_LIMIT=40] Label for battery level chart when charging with duration -->
-<<<<<<< HEAD
-=======
   <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> - Llawn ymhen 
-<xliff:g id="time">%2$s</xliff:g> wrth wefru o\'r trydan</string>
->>>>>>> 22565eb... Automatic translation import
+  <xliff:g id="time">%2$s</xliff:g> wrth wefru o\'r trydan</string>
   <!-- [CHAR_LIMIT=40] Short label for battery level chart when charging with duration -->
   <!-- [CHAR_LIMIT=40] Label for battery level chart when charging with duration -->
-<<<<<<< HEAD
-=======
   <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> - Llawn ymhen 
-<xliff:g id="time">%2$s</xliff:g> wrth wefru trwy USB</string>
->>>>>>> 22565eb... Automatic translation import
+  <xliff:g id="time">%2$s</xliff:g> wrth wefru trwy USB</string>
   <!-- [CHAR_LIMIT=40] Short label for battery level chart when charging with duration -->
   <!-- [CHAR_LIMIT=40] Label for battery level chart when charging with duration -->
-<<<<<<< HEAD
-=======
   <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> - Llawn ymhen
 <xliff:g id="time">%2$s</xliff:g> wrth wefru yn ddiwifr</string>
->>>>>>> 22565eb... Automatic translation import
   <!-- [CHAR_LIMIT=40] Label for battery level chart when charging with duration -->
   <!-- Battery Info screen. Value for a status item.  Used for diagnostic info screens, precise translation isn't needed -->
   <!-- [CHAR_LIMIT=20] Battery use screen.  Battery status shown in chart label when charging from an unknown source.  -->

@@ -40,8 +40,6 @@
   <!-- Privacy Guard -->
   <!-- Text of the checkbox for the permission confirmation dialog to remember the user's choice. [CHAR LIMIT=40] -->
   <!-- App ops requests -->
-<<<<<<< HEAD
-=======
   <string name="app_ops_access_camera">mynediad at dy gamera</string>
   <string name="app_ops_access_location">mynediad at dy leoliad</string>
   <string name="app_ops_access_notifications">darllen dy hysbysiadau</string>
@@ -106,7 +104,6 @@
   <string name="app_ops_get_accounts">cael cyfrifon y ddyfais</string>
   <string name="app_ops_run_in_background">rhedeg yn y cefndir</string>
   <string name="app_ops_wifi_change">newid cyflwr Wi-Fi</string>
->>>>>>> 22565eb... Automatic translation import
   <!-- Protected Apps Notification -->
   <string name="notify_package_component_protected_title">Rhwystrwyd lansio gweithgaredd</string>
   <!-- Notify user that they are in Lock-to-app (for devices without navbar) -->
@@ -115,13 +112,10 @@
   <!-- Single hand mode -->
   <!-- Strings for tethered notification -->
   <!-- Shown when the device is tethered -->
-<<<<<<< HEAD
-=======
   <string name="tethered_notification_no_device_message">Dim dyfais wedi\'i chysylltu</string>
   <string name="tethered_notification_one_device_message"><xliff:g id="count">%1$s</xliff:g> dyfais wedi\'i chysylltu</string>
   <string name="tethered_notification_multi_device_message"><xliff:g id="count">%1$s</xliff:g> dyfais wedi\'u cysylltu</string>
   <!-- Zen mode buttons -->
   <string name="silent_mode_priority">Blaenoriaeth</string>
   <string name="silent_mode_none">Dim</string>
->>>>>>> 22565eb... Automatic translation import
 </resources>
